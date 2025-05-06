@@ -6,7 +6,6 @@ import HowItWorks from "@/components/HowItWorks"
 import Pricing from "@/components/Pricing"
 import FAQ from "@/components/FAQ"
 import CTA from "@/components/CTA"
-import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
