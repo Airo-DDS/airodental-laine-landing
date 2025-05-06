@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Lato } from "next/font/google";
+import FloatingCTA from "@/components/FloatingCTA";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -84,6 +85,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${lato.variable} antialiased`}
       >
         {children}
+        <FloatingCTA />
       </body>
     </html>
   );

@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 import Header from "@/components/Header"
 import Hero from "@/components/Hero"
 import Features from "@/components/Features"
-import Overview from "@/components/Overview"
-import Solutions from "@/components/Solutions"
-import Goals from "@/components/Goals"
+import HowItWorks from "@/components/HowItWorks"
+import Pricing from "@/components/Pricing"
+import FAQ from "@/components/FAQ"
+import CTA from "@/components/CTA"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
   title: "Airodental | Revolutionizing Dental Practices with AI",
-  description: "Enhance efficiency, streamline patient communication, and empower your dental team with Airodental's AI-powered solutions.",
+  description: "Enhance efficiency, streamline patient communication, and empower your dental team with Airodental&apos;s AI-powered solutions.",
 };
 
 export default function Home() {
@@ -19,12 +20,11 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Overview />
         <Features />
-        <Solutions />
-        <Goals />
-        <Contact />
-        {/* Additional sections can be added here */}
+        <HowItWorks />
+        <Pricing />
+        <FAQ />
+        <CTA />
       </main>
       <Footer />
     </div>

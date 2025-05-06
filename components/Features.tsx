@@ -2,7 +2,6 @@
 
 import React from "react"
 import { motion } from "framer-motion"
-import Image from "next/image"
 import { ClipboardEdit, MessageSquare, User } from "lucide-react"
 
 // Enhanced animation variants
@@ -19,18 +18,6 @@ const fadeIn = {
   })
 }
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.7,
-      ease: [0, 0.71, 0.2, 1.01] // "Spring" like bounce effect
-    }
-  }
-}
-
 const cardHoverTransition = {
   type: "spring",
   stiffness: 300,
@@ -39,177 +26,124 @@ const cardHoverTransition = {
 
 export default function Features() {
   return (
-    <section className="relative w-full overflow-hidden py-[50px] md:py-[90px]">
-      {/* Background Image with parallax effect */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        initial={{ y: 0 }}
-        animate={{
-          y: [0, -15, 0],
-          transition: {
-            duration: 20,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "mirror",
-            ease: "linear"
-          }
-        }}
-      >
-        <Image
-          src="/features-section-bg-image.png"
-          alt="Background pattern"
-          fill
-          className="object-cover"
-          priority
-        />
-      </motion.div>
-      
-      {/* Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Title Container */}
-        <motion.div 
-          className="text-center"
+    <section className="w-full py-[60px]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Heading */}
+        <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1, margin: "-100px" }}
+          viewport={{ once: true, amount: 0.1 }}
         >
-          <motion.div 
+          <motion.h2
             variants={fadeIn}
             custom={0}
-            className="text-[18px] sm:text-[20px] md:text-[24px] font-normal font-[family-name:var(--font-geist-sans)] text-[#808080] text-center mb-[8px] sm:mb-[12px]"
+            className="text-[20px] font-medium font-[family-name:var(--font-geist-sans)] text-[#808080] mb-2"
           >
-            YOUR INTELLIGENT DASHBOARD
-          </motion.div>
-          
-          <motion.div 
+            FIELD PROVEN
+          </motion.h2>
+          <motion.p
             variants={fadeIn}
             custom={0.5}
-            className="text-[28px] sm:text-[32px] md:text-[40px] font-normal font-[family-name:var(--font-geist-sans)] text-black text-center max-w-3xl mx-auto leading-tight"
+            className="text-[36px] sm:text-[42px] md:text-[48px] font-normal font-[family-name:var(--font-geist-sans)] text-black leading-tight"
           >
-            Integrated AI platform for
-            <br className="hidden sm:inline" />{" "}
-            complete practice management
-          </motion.div>
+            Over 89% reduction
+            <br />
+            in missed opportunities
+          </motion.p>
         </motion.div>
-        
-        {/* Image Section with subtle floating animation */}
-        <motion.div 
-          variants={scaleIn}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="mt-8 sm:mt-10 md:mt-16 relative"
-        >
-          <motion.div 
-            className="relative w-full h-[250px] xs:h-[300px] sm:h-[380px] md:h-[420px] lg:h-[540px] rounded-lg overflow-hidden"
-            animate={{
-              y: [0, -8, 0],
-              transition: {
-                duration: 4,
-                repeat: Number.POSITIVE_INFINITY,
-                repeatType: "reverse",
-                ease: "easeInOut"
-              }
-            }}
-          >
-            <Image
-              src="/dashboard-screenshots.png"
-              alt="Dashboard screenshots"
-              fill
-              className="object-contain"
-              sizes="(max-width: 640px) 90vw, (max-width: 768px) 80vw, (max-width: 1024px) 70vw, 1000px"
-            />
-          </motion.div>
-        </motion.div>
-        
-        {/* Cards Section */}
-        <motion.div 
-          className="mt-[30px] sm:mt-[40px] md:mt-[60px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-[20px]"
+
+        {/* Cards */}
+        <motion.div
+          className="mt-[30px] grid grid-cols-1 sm:grid-cols-3 gap-6"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
           {/* Card 1 */}
-          <motion.div 
+          <motion.div
             variants={fadeIn}
             custom={1}
-            className="border border-[#E4E4E7] p-[18px_22px] rounded-[10px] bg-white/80 backdrop-blur-sm"
-            whileHover={{ 
-              y: -8, 
-              boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-              transition: cardHoverTransition
+            className="border border-[#E4E4E7] p-[18px_22px] rounded-[10px] bg-white"
+            whileHover={{
+              y: -8,
+              boxShadow:
+                "0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
+              transition: cardHoverTransition,
             }}
           >
             <div className="flex items-center mb-3">
-              <motion.div 
-                className="text-[#C33768] mr-3"
+              <motion.div
+                className="text-[#F57C3A] mr-3"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <ClipboardEdit size={32} strokeWidth={1.75} />
               </motion.div>
-              <div className="text-[18px] sm:text-[20px] font-semibold font-[family-name:var(--font-geist-sans)] text-[#C33768]">
+              <h3 className="text-[18px] sm:text-[20px] font-semibold font-[family-name:var(--font-geist-sans)] text-[#F57C3A]">
                 Smart Task Management
-              </div>
+              </h3>
             </div>
-            <div className="text-[16px] font-normal font-[family-name:var(--font-geist-sans)] text-[#3F3F46]">
+            <p className="text-[16px] font-normal font-[family-name:var(--font-geist-sans)] text-[#3F3F46]">
               Never miss a patient follow-up or critical action item.
-            </div>
+            </p>
           </motion.div>
-          
+
           {/* Card 2 */}
-          <motion.div 
+          <motion.div
             variants={fadeIn}
             custom={1.5}
-            className="border border-[#E4E4E7] p-[18px_22px] rounded-[10px] bg-white/80 backdrop-blur-sm"
-            whileHover={{ 
-              y: -8, 
-              boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-              transition: cardHoverTransition
+            className="border border-[#E4E4E7] p-[18px_22px] rounded-[10px] bg-white"
+            whileHover={{
+              y: -8,
+              boxShadow:
+                "0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
+              transition: cardHoverTransition,
             }}
           >
             <div className="flex items-center mb-3">
-              <motion.div 
-                className="text-[#C33768] mr-3"
+              <motion.div
+                className="text-[#F57C3A] mr-3"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <MessageSquare size={32} strokeWidth={1.75} />
               </motion.div>
-              <div className="text-[18px] sm:text-[20px] font-semibold font-[family-name:var(--font-geist-sans)] text-[#C33768]">
+              <h3 className="text-[18px] sm:text-[20px] font-semibold font-[family-name:var(--font-geist-sans)] text-[#F57C3A]">
                 Unified Communication Hub
-              </div>
+              </h3>
             </div>
-            <div className="text-[16px] font-normal font-[family-name:var(--font-geist-sans)] text-[#3F3F46]">
+            <p className="text-[16px] font-normal font-[family-name:var(--font-geist-sans)] text-[#3F3F46]">
               Handle patient communications across all channels.
-            </div>
+            </p>
           </motion.div>
-          
+
           {/* Card 3 */}
-          <motion.div 
+          <motion.div
             variants={fadeIn}
             custom={2}
-            className="border border-[#E4E4E7] p-[18px_22px] rounded-[10px] bg-white/80 backdrop-blur-sm sm:col-span-2 md:col-span-1"
-            whileHover={{ 
-              y: -8, 
-              boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-              transition: cardHoverTransition
+            className="border border-[#E4E4E7] p-[18px_22px] rounded-[10px] bg-white"
+            whileHover={{
+              y: -8,
+              boxShadow:
+                "0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
+              transition: cardHoverTransition,
             }}
           >
             <div className="flex items-center mb-3">
-              <motion.div 
-                className="text-[#C33768] mr-3"
+              <motion.div
+                className="text-[#F57C3A] mr-3"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <User size={32} strokeWidth={1.75} />
               </motion.div>
-              <div className="text-[18px] sm:text-[20px] font-semibold font-[family-name:var(--font-geist-sans)] text-[#C33768]">
+              <h3 className="text-[18px] sm:text-[20px] font-semibold font-[family-name:var(--font-geist-sans)] text-[#F57C3A]">
                 Patient Management
-              </div>
+              </h3>
             </div>
-            <div className="text-[16px] font-normal font-[family-name:var(--font-geist-sans)] text-[#3F3F46]">
+            <p className="text-[16px] font-normal font-[family-name:var(--font-geist-sans)] text-[#3F3F46]">
               Access complete patient history and records instantly.
-            </div>
+            </p>
           </motion.div>
         </motion.div>
       </div>

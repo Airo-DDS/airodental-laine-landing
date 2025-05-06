@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start mb-10">
           <div className="mb-8 md:mb-0">
             <Image 
-              src="/footer-logo.png" 
+              src="/laine-footer-logo.png" 
               alt="AiroDental Logo" 
               width={160} 
               height={40} 
@@ -23,17 +23,17 @@ export default function Footer() {
             <ul className="list-none p-0 m-0">
               <li className="mb-3">
                 <Link href="#" className="text-white no-underline text-base hover:text-white/80 transition-colors">
-                  Laine
+                  Overview
+                </Link>
+              </li>
+              <li className="mb-3">
+                <Link href="#" className="text-white no-underline text-base hover:text-white/80 transition-colors">
+                  Airodental
                 </Link>
               </li>
               <li className="mb-3">
                 <Link href="#" className="text-white no-underline text-base hover:text-white/80 transition-colors">
                   Saige
-                </Link>
-              </li>
-              <li className="mb-3">
-                <Link href="#" className="text-white no-underline text-base hover:text-white/80 transition-colors">
-                  Overview
                 </Link>
               </li>
               <li className="mb-3">

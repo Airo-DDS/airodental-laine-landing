@@ -38,11 +38,11 @@ export default function Hero() {
         <div className="relative w-full h-full flex items-end">
           <div className="relative w-full h-[100%]">
             <Image
-              src="/hero-bg-image.png"
+              src="/hero-bg-image.jpg"
               alt="Hero background"
               fill
               priority
-              className="object-cover object-bottom opacity-80"
+              className="object-cover object-center opacity-70"
               sizes="100vw"
             />
           </div>
@@ -54,19 +54,20 @@ export default function Hero() {
         <motion.div
           initial="hidden"
           animate="visible"
-          className="hero-main-container"
+          className="flex flex-col items-center sm:items-start"
         >
           {/* Hero Logo */}
           <motion.div
             variants={fadeInUp}
             custom={0}
+            className="flex justify-center sm:justify-start w-full"
           >
             <Image 
-              src="/hero-section-logo.png" 
+              src="/laine-hero-logo.png" 
               alt="Airodental Logo" 
-              width={300} 
+              width={200} 
               height={100}
-              className="w-[300px] max-w-full h-auto mb-6 sm:mb-8"
+              className="w-[200px] max-w-full h-auto mb-6 sm:mb-8"
             />
           </motion.div>
           
@@ -74,16 +75,18 @@ export default function Hero() {
           <motion.div 
             variants={fadeInUp}
             custom={1}
-            className="text-[36px] font-medium mb-[30px] text-black md:pr-10 sm:text-[30px] xs:text-[26px]"
+            className="text-[30px] xs:text-[36px] font-medium mb-[30px] text-black md:pr-10 sm:text-[30px] text-center sm:text-left w-full"
           >
-            Revolutionizing dental practices with AI
+            Your complete 
+            <br className="hidden sm:inline" />{" "}
+            AI Dental Assistant
           </motion.div>
           
           {/* CTA Container */}
           <motion.div 
             variants={fadeInUp}
             custom={2}
-            className="flex flex-col sm:flex-row items-center gap-[33px] flex-wrap"
+            className="flex justify-center sm:justify-start w-full"
           >
             <motion.div
               whileHover={{ 
@@ -93,26 +96,20 @@ export default function Hero() {
               }}
               whileTap={{ scale: 0.98 }}
             >
-              <Link 
-                href="#how-it-works" 
-                className="inline-block px-10 py-3 bg-white rounded-full border border-[#f1f1f1]"
+              <a 
+                href="https://forms.gle/VRERfm5jdbLWddMc6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-10 py-3 bg-[#C33764] text-white rounded-full border border-[#f1f1f1] shadow-lg hover:shadow-xl transition-all"
               >
-                <span 
-                  className="text-xl font-medium"
-                  style={{ 
-                    background: "linear-gradient(135deg, #C33A69 0%, #86399E 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text"
-                  }}
-                >
-                  See how it works
+                <span className="text-xl font-medium">
+                  Join Waitlist Now
                 </span>
-              </Link>
+              </a>
             </motion.div>
           </motion.div>
         </motion.div>
       </div>
     </div>
   )
-} 
+}
