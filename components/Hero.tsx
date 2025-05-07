@@ -5,6 +5,7 @@ import type { FC } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Play, Pause, SkipBack, SkipForward, Maximize2 } from "lucide-react"
+import AudioTranscriptModal from "./AudioTranscriptModal"
 
 // Animation variants for consistent, reusable animations
 const fadeInUp = {
@@ -86,6 +87,7 @@ export default function Hero() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(150); // Default 2:30 in seconds
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -303,6 +305,7 @@ export default function Hero() {
             
             <button 
               type="button"
+              onClick={() => setIsModalOpen(true)}
               className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
               aria-label="Fullscreen"
             >
@@ -311,6 +314,12 @@ export default function Hero() {
           </motion.div>
         </div>
       </div>
+
+      {/* Audio Transcript Modal */}
+      <AudioTranscriptModal 
+        open={isModalOpen} 
+        onOpenChange={setIsModalOpen} 
+      />
     </div>
   )
 }
