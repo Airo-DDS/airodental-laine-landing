@@ -74,7 +74,7 @@ export default function CTA() {
               variants={buttonVariants}
             >
               <a
-                href="https://forms.gle/VRERfm5jdbLWddMc6"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-8 py-3 bg-[#C33764] text-white rounded-[5px] font-medium font-[family-name:var(--font-geist-sans)] transition-all duration-300"
@@ -89,7 +89,7 @@ export default function CTA() {
               variants={buttonVariants}
             >
               <a
-                href="https://forms.gle/VRERfm5jdbLWddMc6"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-8 py-3 border border-[#E4E4E7] text-black rounded-[5px] font-medium font-[family-name:var(--font-geist-sans)] transition-all duration-300 hover:border-[#C33764] hover:text-[#C33764]"

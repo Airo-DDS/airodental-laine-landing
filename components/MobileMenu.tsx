@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useEffect } from "react"
-import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 
 interface MobileMenuProps {
@@ -93,6 +92,25 @@ export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuPro
     }
   }, [isOpen])
 
+  const handleMenuClick = (href: string) => {
+    if (href.startsWith('#')) {
+      // Handle section scrolling
+      const sectionId = href.substring(1);
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+      onClose();
+    } else if (href.startsWith('http')) {
+      // Handle external links
+      window.open(href, '_blank', 'noopener,noreferrer');
+      onClose();
+    } else {
+      // Handle internal routes
+      onClose();
+    }
+  };
+
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
@@ -153,15 +171,27 @@ export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuPro
                       key={item.title}
                       variants={menuItemVariants}
                     >
-                      <Link
-                        href={item.href}
-                        className="block py-2 text-lg font-medium text-gray-800 hover:text-[#09474C] transition-colors duration-300 relative after:absolute after:w-0 after:h-[1px] after:bg-[#09474C] after:bottom-0 after:left-0 after:transition-all after:duration-300 hover:after:w-full"
-                        onClick={onClose}
+                      <button
+                        onClick={() => handleMenuClick(item.href)}
+                        className="block w-full text-left py-2 text-lg font-medium text-gray-800 hover:text-[#C33764] transition-colors duration-300 relative after:absolute after:w-0 after:h-[1px] after:bg-[#C33764] after:bottom-0 after:left-0 after:transition-all after:duration-300 hover:after:w-full bg-transparent border-none"
                       >
                         {item.title}
-                      </Link>
+                      </button>
                     </motion.li>
                   ))}
+                  
+                  {/* Join Waitlist Button */}
+                  <motion.li variants={menuItemVariants} className="pt-4">
+                    <a
+                      href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={onClose}
+                      className="block w-full text-center py-3 px-6 text-white bg-[#C33764] hover:bg-opacity-90 rounded-md transition-colors duration-300 font-medium"
+                    >
+                      Join Waitlist
+                    </a>
+                  </motion.li>
                 </ul>
               </nav>
             </div>

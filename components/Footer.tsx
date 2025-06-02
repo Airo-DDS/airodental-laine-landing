@@ -4,6 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="bg-[#0F121E] text-white py-[60px] px-5">
       <div className="max-w-[1200px] mx-auto">
@@ -11,7 +18,7 @@ export default function Footer() {
           <div className="mb-8 md:mb-0">
             <Image 
               src="/laine-footer-logo.png" 
-              alt="AiroDental Logo" 
+              alt="Laine Logo" 
               width={160} 
               height={40} 
               className="max-w-[160px] h-auto"
@@ -22,24 +29,38 @@ export default function Footer() {
             <div className="text-sm uppercase tracking-wider text-white/70 mb-4">MENU</div>
             <ul className="list-none p-0 m-0">
               <li className="mb-3">
-                <Link href="#" className="text-white no-underline text-base hover:text-white/80 transition-colors">
-                  Overview
-                </Link>
+                <button 
+                  onClick={() => scrollToSection('how-it-works')}
+                  className="text-white no-underline text-base hover:text-white/80 transition-colors cursor-pointer bg-transparent border-none p-0"
+                >
+                  How it Works
+                </button>
               </li>
               <li className="mb-3">
-                <Link href="#" className="text-white no-underline text-base hover:text-white/80 transition-colors">
+                <button 
+                  onClick={() => scrollToSection('faq')}
+                  className="text-white no-underline text-base hover:text-white/80 transition-colors cursor-pointer bg-transparent border-none p-0"
+                >
+                  FAQ
+                </button>
+              </li>
+              <li className="mb-3">
+                <button 
+                  onClick={() => scrollToSection('pricing')}
+                  className="text-white no-underline text-base hover:text-white/80 transition-colors cursor-pointer bg-transparent border-none p-0"
+                >
+                  Pricing
+                </button>
+              </li>
+              <li className="mb-3">
+                <a 
+                  href="https://airodental.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white no-underline text-base hover:text-white/80 transition-colors"
+                >
                   Airodental
-                </Link>
-              </li>
-              <li className="mb-3">
-                <Link href="#" className="text-white no-underline text-base hover:text-white/80 transition-colors">
-                  Saige
-                </Link>
-              </li>
-              <li className="mb-3">
-                <Link href="#" className="text-white no-underline text-base hover:text-white/80 transition-colors">
-                  Updates
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -50,10 +71,10 @@ export default function Footer() {
             Copyright 2025 @ Airodental
           </div>
           <div className="flex gap-6">
-            <Link href="#" className="text-white/60 no-underline text-sm hover:text-white/80 transition-colors">
+            <Link href="/privacy-policy" className="text-white/60 no-underline text-sm hover:text-white/80 transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="text-white/60 no-underline text-sm hover:text-white/80 transition-colors">
+            <Link href="/terms-of-service" className="text-white/60 no-underline text-sm hover:text-white/80 transition-colors">
               Terms of Service
             </Link>
           </div>

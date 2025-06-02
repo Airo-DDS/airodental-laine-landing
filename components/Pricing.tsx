@@ -102,7 +102,7 @@ const pricingPlans = [
 
 export default function Pricing() {
   return (
-    <section className="w-full py-[80px] bg-white">
+    <section id="pricing" className="w-full py-[80px] bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
         <motion.div
@@ -193,7 +193,7 @@ export default function Pricing() {
                   className="mt-4"
                 >
                   <a
-                    href="https://forms.gle/VRERfm5jdbLWddMc6"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block text-center w-full py-3 px-5 rounded-[5px] bg-white border border-[#F57C3A] text-[#F57C3A] font-medium font-[family-name:var(--font-geist-sans)] transition-all duration-300 hover:bg-[#F57C3A] hover:text-white"
@@ -227,7 +227,7 @@ export default function Pricing() {
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
-              href="https://forms.gle/VRERfm5jdbLWddMc6"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 bg-[#C33A69] text-white rounded-[5px] font-medium font-[family-name:var(--font-geist-sans)] transition-all duration-300 text-center"
@@ -238,7 +238,7 @@ export default function Pricing() {
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
-              href="https://forms.gle/VRERfm5jdbLWddMc6"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 bg-white border border-[#E4E4E7] text-black rounded-[5px] font-medium font-[family-name:var(--font-geist-sans)] transition-all duration-300 hover:border-[#F57C3A] hover:text-[#F57C3A] text-center"

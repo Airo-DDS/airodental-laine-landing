@@ -11,7 +11,7 @@ const slides = [
     subtitle: "Integrate to your system",
     description:
       "Laine connects seamlessly with your existing dental software, syncing patient data, schedules, and messages in real time without disrupting your workflow.",
-    imageSrc: "/slides/slide1.png",
+    imageSrc: "/slides/Connect to your practice management system.png",
     imageAlt: "Dashboard integration screenshot",
   },
   {
@@ -20,7 +20,7 @@ const slides = [
     subtitle: "Set up your channels",
     description:
       "Route calls, texts, and voicemails through a unified inbox. Customize automated replies and reminders so no patient inquiry ever slips through the cracks.",
-    imageSrc: "/slides/slide2.png",
+    imageSrc: "/slides/Automate patient communications.png",
     imageAlt: "Communications hub screenshot",
   },
   {
@@ -29,7 +29,7 @@ const slides = [
     subtitle: "Stay on top of follow-ups",
     description:
       "Our smart task manager surfaces critical action items and follow-up reminders based on your practice rules, so every patient gets timely care.",
-    imageSrc: "/slides/slide3.png",
+    imageSrc: "/slides/Manage tasks intelligently.png",
     imageAlt: "Task management screenshot",
   },
   {
@@ -38,7 +38,7 @@ const slides = [
     subtitle: "Analyze your performance",
     description:
       "Built-in analytics dashboards track call volume, response times, and patient satisfaction, helping you optimize operations and grow your practice.",
-    imageSrc: "/slides/slide4.png",
+    imageSrc: "/slides/Gain instant insights.png",
     imageAlt: "Analytics dashboard screenshot",
   },
 ];
@@ -171,7 +171,7 @@ export default function HowItWorks() {
                     src={slides[current].imageSrc}
                     alt={slides[current].imageAlt}
                     fill
-                    className="object-cover object-center"
+                    className="object-contain object-center"
                     priority
                   />
                 </div>
@@ -238,7 +238,7 @@ export default function HowItWorks() {
             className="inline-block"
           >
             <a 
-              href="https://forms.gle/VRERfm5jdbLWddMc6"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"
               target="_blank"
               rel="noopener noreferrer"
               className="px-10 py-4 bg-[#C33764] text-white rounded-full font-medium text-lg transition-all duration-300 shadow-md hover:shadow-lg"
