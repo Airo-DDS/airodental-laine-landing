@@ -40,8 +40,8 @@ const AudioTranscriptModal: FC<AudioTranscriptModalProps> = ({
                 <p><strong>AI</strong>: Thank you for sharing that. I&apos;m glad you called. We&apos;d be happy to help with your toothache and get you set up here. Would you like to schedule an emergency dental visit? Or perhaps a checkup and X rays to start?</p>
                 <p><strong>User</strong>: Yeah. That&apos;s probably what I need to do. Right?</p>
                 <p><strong>AI</strong>: Absolutely. A checkup and X rays is a is a great way to start. Let me get some details so I can find a time for you. Can I have your full first and last name, please?</p>
-                <p><strong>User</strong>: Yep. Sure. It&apos;s Darren Flesher.</p>
-                <p><strong>AI</strong>: Thanks, Darren. Can you spell that for me? Just to make sure I get it exactly right.</p>
+                <p><strong>User</strong>: Yep. Sure. It&apos;s Deren Flesher.</p>
+                <p><strong>AI</strong>: Thanks, Deren. Can you spell that for me? Just to make sure I get it exactly right.</p>
                 <p><strong>User</strong>: Yep. It&apos;s d e r e n f l e s h e r.</p>
                 <p><strong>AI</strong>: Got it. And what&apos;s the best contact phone number for you?</p>
                 <p><strong>User</strong>: Sure. It&apos;s 4 0 5 8 0 8 1 2 3 4.</p>
@@ -51,11 +51,11 @@ const AudioTranscriptModal: FC<AudioTranscriptModalProps> = ({
                 <p><strong>User</strong>: I will. Yep.</p>
                 <p><strong>AI</strong>: Thanks for sharing that. Can you tell me the name of your insurance company?</p>
                 <p><strong>User</strong>: Yeah. I think it&apos;s Aetna.</p>
-                <p><strong>AI</strong>: Thanks, Darren. Can you please spell that for me? Just to make sure I get it</p>
+                <p><strong>AI</strong>: Thanks, Deren. Can you please spell that for me? Just to make sure I get it</p>
                 <p><strong>User</strong>: Aetna. Yeah. It&apos;s a e t n a.</p>
                 <p><strong>AI</strong>: Perfect. And do you know the subscribers full name and date of birth?</p>
-                <p><strong>User</strong>: Yeah. I&apos;m the subscriber. So it&apos;s still Darren Flesher, and it&apos;s 3 1 85.</p>
-                <p><strong>AI</strong>: Thanks for that. Just to confirm, your full name is Darren Fleisher and your birth date is March 30 first 19 85. Correct?</p>
+                <p><strong>User</strong>: Yeah. I&apos;m the subscriber. So it&apos;s still Deren Flesher, and it&apos;s 3 1 85.</p>
+                <p><strong>AI</strong>: Thanks for that. Just to confirm, your full name is Deren Fleisher and your birth date is March 30 first 19 85. Correct?</p>
                 <p><strong>User</strong>: Close. It&apos;s 3 1 85.</p>
                 <p><strong>AI</strong>: Got it. Thanks for clarifying. Now, would you prefer a morning or afternoon appointment? We have openings on Thursday or Friday. Do either of those days work for you?</p>
                 <p><strong>User</strong>: Yeah. Thursday is good.</p>
@@ -63,13 +63,13 @@ const AudioTranscriptModal: FC<AudioTranscriptModalProps> = ({
                 <p><strong>User</strong>: Okay. Do that earlier time, the 8 30.</p>
                 <p><strong>AI</strong>: Perfect. I&apos;ll go ahead and book you for Thursday at 8 30 in the morning. I&apos;ll also send you a confirmation email and a reminder Can I get your email address?</p>
                 <p><strong>User</strong>: Yeah. It&apos;s just my first and last name together at g mail.</p>
-                <p><strong>AI</strong>: Thanks, Darren. Just to make sure I have it right, is it daren plescher at gmail dot com?</p>
+                <p><strong>AI</strong>: Thanks, Deren. Just to make sure I have it right, is it daren plescher at gmail dot com?</p>
                 <p><strong>User</strong>: Yep.</p>
                 <p><strong>AI</strong>: Great. You&apos;re all set for Thursday at 8 30 in the morning. We&apos;ll verify your insurance. Ahead of time, and please arrive about 5 to 10 minutes early. Our address is</p>
                 <p><strong>User</strong>: Okay. Oh, sorry. Go ahead. What was your address?</p>
-                <p><strong>AI</strong>: No problem. Our address is 71 0 1 Northwest 100 and fiftieth Street at the corner of 100 fiftieth and Rockwell. If you have any other questions before your visit, just give us a call. We&apos;re looking forward to seeing you, Darren.</p>
+                <p><strong>AI</strong>: No problem. Our address is 71 0 1 Northwest 100 and fiftieth Street at the corner of 100 fiftieth and Rockwell. If you have any other questions before your visit, just give us a call. We&apos;re looking forward to seeing you, Deren.</p>
                 <p><strong>User</strong>: Okay. Thanks so much, Lane. I appreciate it. See you guys on Thursday.</p>
-                <p><strong>AI</strong>: You&apos;re very welcome. We&apos;re glad to help. See you Thursday at 8 30. Have a great day, Darren.</p>
+                <p><strong>AI</strong>: You&apos;re very welcome. We&apos;re glad to help. See you Thursday at 8 30. Have a great day, Deren.</p>
                 <p><strong>User</strong>: Alright. Thanks. Bye bye.</p>
               </div>
             </div>
@@ -80,7 +80,7 @@ const AudioTranscriptModal: FC<AudioTranscriptModalProps> = ({
             <div className="bg-gray-50 p-6 rounded-md">
               <h3 className="text-lg font-medium mb-4">AI Summary</h3>
               <p className="text-gray-700 leading-relaxed">
-                Darren Flesher, a new resident with a toothache, called Royal Oak Family Dental to establish care. He scheduled a checkup with X-rays for Thursday at 8:30 AM, provided his contact information and Aetna insurance details, and confirmed the office location at 7101 NW 150th Street.
+                Deren Flesher, a new resident with a toothache, called Royal Oak Family Dental to establish care. He scheduled a checkup with X-rays for Thursday at 8:30 AM, provided his contact information and Aetna insurance details, and confirmed the office location at 7101 NW 150th Street.
               </p>
             </div>
           </TabsContent>
@@ -92,11 +92,11 @@ const AudioTranscriptModal: FC<AudioTranscriptModalProps> = ({
                 <div className="bg-white p-4 rounded-md shadow-sm">
                   <h3 className="font-medium mb-2">Patient Information</h3>
                   <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div><span className="text-gray-500">Name:</span> Darren Flesher</div>
+                    <div><span className="text-gray-500">Name:</span> Deren Flesher</div>
                     <div><span className="text-gray-500">Phone:</span> 405‑808‑1234</div>
                     <div><span className="text-gray-500">Email:</span> darenplescher@gmail.com</div>
                     <div><span className="text-gray-500">Insurance:</span> Aetna</div>
-                    <div><span className="text-gray-500">Subscriber:</span> Darren Flesher</div>
+                    <div><span className="text-gray-500">Subscriber:</span> Deren Flesher</div>
                     <div><span className="text-gray-500">DOB:</span> 3‑1‑85</div>
                     <div><span className="text-gray-500">Appointment:</span> Thursday, 08:30</div>
                     <div><span className="text-gray-500">Type:</span> Comprehensive exam & X‑rays</div>
@@ -168,7 +168,7 @@ const AudioTranscriptModal: FC<AudioTranscriptModalProps> = ({
                         title: "Update team briefing log",
                         owner: "Office Manager",
                         status: "pending",
-                        notes: "Add Darren Flesher to daily huddle list for Thursday; highlight toothache chief complaint."
+                        notes: "Add Deren Flesher to daily huddle list for Thursday; highlight toothache chief complaint."
                       }
                     ].map((task) => (
                       <div key={task.id} className="bg-white p-3 rounded-md shadow-sm">
