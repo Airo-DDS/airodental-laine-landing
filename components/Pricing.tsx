@@ -58,44 +58,42 @@ const buttonVariants = {
 // Pricing plans data
 const pricingPlans = [
   {
-    title: "Solo Practice",
-    description: "For individual dentists looking to enhance patient communication efficiency",
-    price: "$349/month",
+    title: "Laine Lite",
+    description: "For practices seeking a streamlined AI receptionist for new patient calls",
+    price: "From $295/month",
     features: [
-      "Up to 500 AI-handled calls monthly",
-      "Basic appointment scheduling",
-      "Integration with one practice management system",
-      "Basic analytics",
-      "Patient verification",
-      "Support (M-F, 9-5)"
+      "700 AI-handled minutes per month (typically handles 150+ calls)",
+      "Scalable to meet demand with top-up minute packs",
+      "Basic appointment scheduling (non-integrated)",
+      "Core analytics dashboard",
+      "Patient intake & verification workflows",
+      "Support available M–F, 9–5 CST"
     ]
   },
   {
-    title: "Growing Practice",
-    description: "Perfect for individual dentists looking to enhance patient communication efficiency",
-    price: "$599/month",
+    title: "Laine Integrated",
+    description: "For practices needing deeper automation and real-time integrations",
+    price: "From $495/month",
     features: [
-      "Everything in Solo Practice, plus:",
-      "Up to 1,500 AI-handled calls monthly",
-      "Appointment scheduling with multiple providers",
-      "Integration with multiple practice management systems",
-      "Advanced analytics with performance insights",
-      "Multi-user access with role permissions"
+      "Includes all features in Laine Lite",
+      "1,300 total AI-handled minutes per month",
+      "Integrated appointment scheduling with multiple providers",
+      "Real-time PMS integration (e.g., Dentrix, Eaglesoft, OpenDental, and more)",
+      "Analytics and performance tracking",
+      "Multi-user access with role-based permissions"
     ]
   },
   {
-    title: "Multi-Location",
-    description: "Custom solutions for DSOs and practices with multiple locations",
-    price: "Contact Sales",
+    title: "Multi-Location / Enterprise",
+    description: "For DSOs and multi-site practices with custom needs",
+    price: "Custom pricing",
     isEnterprise: true,
     features: [
-      "Everything in Growing Practice, plus:",
-      "Unlimited AI calls and messages",
-      "Full integration with your practice management software",
-      "Patient verification and HIPAA compliance",
-      "Regular updates and new features",
-      "Dedicated support team",
-      "API access for custom integrations"
+      "Includes all features in Laine Integrated",
+      "Custom or unlimited AI-handled minutes",
+      "API access and advanced integration support",
+      "Full HIPAA compliance with dedicated success team",
+      "Custom workflows and roadmap influence"
     ]
   }
 ];
@@ -132,7 +130,7 @@ export default function Pricing() {
             custom={0.8}
             className="max-w-2xl mx-auto text-[16px] text-[#4A4A4A] font-normal font-[family-name:var(--font-geist-sans)]"
           >
-            We understand that every dental practice has unique needs. Laine&apos;s pricing is 
+            We understand that every dental practice has unique needs. Laine's pricing is 
             customized based on your practice size, call volume, and specific requirements.
           </motion.p>
         </motion.div>
@@ -218,7 +216,7 @@ export default function Pricing() {
               Not sure which plan is right for you?
             </p>
             <h3 className="text-[22px] md:text-[24px] font-semibold font-[family-name:var(--font-geist-sans)] text-black">
-              Book a consultation with our team to receive a customized quote based on your practice&apos;s specific needs.
+              Book a consultation with our team to receive a customized quote based on your practice's specific needs.
             </h3>
           </motion.div>
 
@@ -245,6 +243,30 @@ export default function Pricing() {
             >
               Schedule Demo
             </motion.a>
+          </motion.div>
+        </motion.div>
+
+        {/* Additional Clarification */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="mt-12 pt-8 border-t border-[#E4E4E7]"
+        >
+          <motion.div variants={fadeInUp} custom={0} className="bg-[#FFF8F5] border border-[#F57C3A] rounded-[10px] p-6">
+            <div className="flex items-start">
+              <span className="text-[#F57C3A] mr-3 mt-1 text-lg">⚠️</span>
+              <div>
+                <h4 className="text-[16px] font-semibold font-[family-name:var(--font-geist-sans)] text-black mb-3">
+                  Additional Clarification:
+                </h4>
+                <ul className="space-y-2 text-[14px] text-[#4A4A4A] font-normal font-[family-name:var(--font-geist-sans)]">
+                  <li>• Overage billing: $50 per 200-minute pack, auto-provisioned before usage</li>
+                  <li>• All minutes (base and overage) expire at the start of the next billing cycle</li>
+                  <li>• Stripe integration supports real-time usage tracking and billing</li>
+                </ul>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       </div>

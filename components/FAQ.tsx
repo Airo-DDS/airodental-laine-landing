@@ -27,7 +27,7 @@ const fadeInUp = {
 const faqItems = [
   {
     question: "How quickly can Laine be implemented in my practice?",
-    answer: "Laine can be implemented in as little as 2-3 business days. Our onboarding team handles the entire process, including integration with your existing systems, staff training, and customization to fit your specific practice needs. We&apos;ve designed the implementation process to be minimally disruptive to your daily operations."
+    answer: "Laine can be implemented in as little as 2-3 business days. Our onboarding team handles the entire process, including integration with your existing systems, staff training, and customization to fit your specific practice needs. We've designed the implementation process to be minimally disruptive to your daily operations."
   },
   {
     question: "Will Laine work with our existing practice management software?",
@@ -38,8 +38,8 @@ const faqItems = [
     answer: "Laine is built from the ground up with HIPAA compliance as a core requirement. We employ end-to-end encryption for all patient data, implement role-based access controls, maintain detailed audit logs, and conduct regular security assessments. Our platform undergoes annual HIPAA compliance audits, and we provide Business Associate Agreements (BAAs) to all clients. Patient information is stored in secure, redundant data centers with industry-leading security protocols."
   },
   {
-    question: "Can patients tell they&apos;re speaking with an AI assistant?",
-    answer: "Laine&apos;s AI assistant is designed to provide a natural, human-like communication experience. When handling calls, Laine identifies itself as your practice&apos;s assistant rather than explicitly stating it&apos;s an AI. However, we believe in transparency, and patients can be informed about the AI technology if they ask directly. Our clients report that patients frequently praise the responsiveness and efficiency of communications since implementing Laine, often without realizing they&apos;re interacting with an AI assistant."
+    question: "Can patients tell they're speaking with an AI assistant?",
+    answer: "Laine's AI assistant is designed to provide a natural, human-like communication experience. When handling calls, Laine identifies itself as your practice's assistant rather than explicitly stating it's an AI. However, we believe in transparency, and patients can be informed about the AI technology if they ask directly. Our clients report that patients frequently praise the responsiveness and efficiency of communications since implementing Laine, often without realizing they're interacting with an AI assistant."
   },
   {
     question: "What kind of results can I expect after implementing Laine?",

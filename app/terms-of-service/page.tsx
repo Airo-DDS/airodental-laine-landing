@@ -110,12 +110,12 @@ export default function TermsOfService() {
               <h3 className="text-xl font-medium mb-3">6.2 Billing</h3>
               <p className="mb-4">
                 Fees are billed monthly or annually in advance. Late payments may result in service 
-                suspension after 10 days&apos; notice.
+                suspension after 10 days' notice.
               </p>
 
               <h3 className="text-xl font-medium mb-3">6.3 Price Changes</h3>
               <p>
-                We may modify pricing with 30 days&apos; written notice. Price changes will not affect 
+                We may modify pricing with 30 days' written notice. Price changes will not affect 
                 your current billing period.
               </p>
             </section>
@@ -170,7 +170,7 @@ export default function TermsOfService() {
               <h2 className="text-2xl font-semibold mb-4">11. Termination</h2>
               <h3 className="text-xl font-medium mb-3">11.1 Termination by You</h3>
               <p className="mb-4">
-                You may terminate your account at any time with 30 days&apos; written notice. 
+                You may terminate your account at any time with 30 days' written notice. 
                 You remain responsible for all charges incurred before termination.
               </p>
               
@@ -203,7 +203,7 @@ export default function TermsOfService() {
               <h2 className="text-2xl font-semibold mb-4">13. Changes to Terms</h2>
               <p>
                 We may modify these Terms at any time by posting updated terms on our website. 
-                Material changes will be communicated via email with 30 days&apos; notice. 
+                Material changes will be communicated via email with 30 days' notice. 
                 Continued use constitutes acceptance of modified Terms.
               </p>
             </section>

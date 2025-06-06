@@ -10,7 +10,7 @@ import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
   title: "Airodental | Revolutionizing Dental Practices with AI",
-  description: "Enhance efficiency, streamline patient communication, and empower your dental team with Airodental&apos;s AI-powered solutions.",
+  description: "Enhance efficiency, streamline patient communication, and empower your dental team with Airodental's AI-powered solutions.",
 };
 
 export default function Home() {
