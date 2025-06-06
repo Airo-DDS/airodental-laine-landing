@@ -251,22 +251,13 @@ export default function Pricing() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="mt-12 pt-8 border-t border-[#E4E4E7]"
+          className="mt-8 text-center"
         >
-          <motion.div variants={fadeInUp} custom={0} className="bg-[#FFF8F5] border border-[#F57C3A] rounded-[10px] p-6">
-            <div className="flex items-start">
-              <span className="text-[#F57C3A] mr-3 mt-1 text-lg">⚠️</span>
-              <div>
-                <h4 className="text-[16px] font-semibold font-[family-name:var(--font-geist-sans)] text-black mb-3">
-                  Additional Clarification:
-                </h4>
-                <ul className="space-y-2 text-[14px] text-[#4A4A4A] font-normal font-[family-name:var(--font-geist-sans)]">
-                  <li>• Overage billing: $50 per 200-minute pack, auto-provisioned before usage</li>
-                  <li>• All minutes (base and overage) expire at the start of the next billing cycle</li>
-                  <li>• Stripe integration supports real-time usage tracking and billing</li>
-                </ul>
-              </div>
-            </div>
+          <motion.div variants={fadeInUp} custom={0} className="text-[12px] text-[#808080] font-normal font-[family-name:var(--font-geist-sans)] leading-relaxed">
+            <p className="mb-1">Additional Clarification:</p>
+            <p className="mb-1">• Overage billing: $50 per 200-minute pack, auto-provisioned before usage</p>
+            <p className="mb-1">• All minutes (base and overage) expire at the start of the next billing cycle</p>
+            <p>• Stripe integration supports real-time usage tracking and billing</p>
           </motion.div>
         </motion.div>
       </div>
