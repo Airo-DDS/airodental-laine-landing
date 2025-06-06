@@ -111,7 +111,7 @@ export default function PrivacyPolicy() {
               <h2 className="text-2xl font-semibold mb-4">7. Data Retention</h2>
               <p>
                 We retain data only as long as necessary to provide services and comply with legal 
-                obligations. Patient health information is retained according to your practice's 
+                obligations. Patient health information is retained according to your practice&#39;s 
                 retention policies and applicable healthcare regulations.
               </p>
             </section>

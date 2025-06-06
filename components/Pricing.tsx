@@ -130,7 +130,7 @@ export default function Pricing() {
             custom={0.8}
             className="max-w-2xl mx-auto text-[16px] text-[#4A4A4A] font-normal font-[family-name:var(--font-geist-sans)]"
           >
-            We understand that every dental practice has unique needs. Laine's pricing is 
+            We understand that every dental practice has unique needs. Laine&#39;s pricing is 
             customized based on your practice size, call volume, and specific requirements.
           </motion.p>
         </motion.div>
@@ -216,7 +216,7 @@ export default function Pricing() {
               Not sure which plan is right for you?
             </p>
             <h3 className="text-[22px] md:text-[24px] font-semibold font-[family-name:var(--font-geist-sans)] text-black">
-              Book a consultation with our team to receive a customized quote based on your practice's specific needs.
+              Book a consultation with our team to receive a customized quote based on your practice&#39;s specific needs.
             </h3>
           </motion.div>
 
