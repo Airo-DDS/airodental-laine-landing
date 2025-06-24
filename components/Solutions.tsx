@@ -2,33 +2,9 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image";
+import { fadeIn, scaleIn } from "@/lib/animations";
 
 // Enhanced animation variants
-const fadeIn = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (custom = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: custom * 0.15,
-      duration: 0.7,
-      ease: "easeOut" // Custom easing for natural motion
-    }
-  })
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.7,
-      ease: "easeOut" // Spring-like effect
-    }
-  }
-};
-
 const cardHoverTransition = {
   type: "spring",
   stiffness: 300,

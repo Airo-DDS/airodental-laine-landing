@@ -8,19 +8,7 @@ import { Play, Pause, SkipBack, SkipForward, Maximize2, Mic } from "lucide-react
 import AudioTranscriptModal from "./AudioTranscriptModal"
 import VapiModal from "./VapiModal"
 
-// Animation variants for consistent, reusable animations
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: custom * 0.2,
-      duration: 0.6,
-      ease: "easeOut" // Custom easing for natural motion
-    }
-  })
-}
+import { fadeInUp } from "@/lib/animations"
 
 // Custom audio waveform component since react-audio-visualize has compatibility issues with React 19
 const CustomAudioWaveform: FC<{ isPlaying: boolean; currentProgress: number }> = ({ 

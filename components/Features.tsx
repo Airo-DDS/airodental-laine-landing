@@ -3,21 +3,9 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { ClipboardEdit, MessageSquare, User } from "lucide-react"
+import { fadeInUp } from "@/lib/animations"
 
 // Enhanced animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: custom * 0.15,
-      duration: 0.7,
-      ease: "easeOut" // Custom easing for natural motion
-    }
-  })
-}
-
 const cardHoverTransition = {
   type: "spring",
   stiffness: 300,

@@ -2,35 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: custom * 0.15,
-      duration: 0.7,
-      ease: "easeOut"
-    }
-  })
-};
-
-const buttonVariants = {
-  hover: {
-    scale: 1.05,
-    boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 10
-    }
-  },
-  tap: {
-    scale: 0.98
-  }
-};
+import { fadeInUp, buttonHover } from "@/lib/animations";
 
 export default function CTA() {
   return (
@@ -71,7 +43,7 @@ export default function CTA() {
             <motion.div
               whileHover="hover"
               whileTap="tap"
-              variants={buttonVariants}
+              variants={buttonHover}
             >
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"
@@ -86,7 +58,7 @@ export default function CTA() {
             <motion.div
               whileHover="hover"
               whileTap="tap"
-              variants={buttonVariants}
+              variants={buttonHover}
             >
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"

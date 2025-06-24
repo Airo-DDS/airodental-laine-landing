@@ -8,20 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: custom * 0.15,
-      duration: 0.7,
-      ease: "easeOut"
-    }
-  })
-};
+import { fadeInUp } from "@/lib/animations";
 
 // FAQ questions and answers
 const faqItems = [

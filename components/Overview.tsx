@@ -3,32 +3,8 @@
 import React, { useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import { fadeIn, slideInRight } from "@/lib/animations"
 
-// Animation variants for consistent, reusable animations
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    transition: {
-      delay: custom * 0.2,
-      duration: 0.7,
-      ease: "easeOut"
-    }
-  })
-}
-
-const slideInRight = {
-  hidden: { opacity: 0, x: 50 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    x: 0,
-    transition: {
-      delay: custom * 0.2,
-      duration: 0.8,
-      ease: "easeOut"
-    }
-  })
-}
 
 
 

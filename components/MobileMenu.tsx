@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { modalBackdrop, modalPanel, menuItem } from "@/lib/animations"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -12,62 +13,7 @@ interface MobileMenuProps {
   }>
 }
 
-// Animation variants
-const backdropVariants = {
-  hidden: { opacity: 0 },
-  visible: { 
-    opacity: 1,
-    transition: {
-      duration: 0.3,
-      ease: "easeOut"
-    }
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: "easeIn"
-    }
-  }
-}
 
-const menuVariants = {
-  hidden: { x: "100%" },
-  visible: { 
-    x: 0,
-    transition: {
-      type: "spring",
-      damping: 20,
-      stiffness: 100,
-      ease: "easeOut"
-    }
-  },
-  exit: {
-    x: "100%",
-    transition: {
-      duration: 0.3,
-      ease: "easeInOut"
-    }
-  }
-}
-
-const menuItemVariants = {
-  hidden: { x: 20, opacity: 0 },
-  visible: { 
-    x: 0, 
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: "easeOut"
-    }
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2
-    }
-  }
-}
 
 export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuProps) {
   // Close menu when Escape key is pressed
@@ -116,7 +62,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuPro
         <>
           {/* Backdrop */}
           <motion.div
-            variants={backdropVariants}
+            variants={modalBackdrop}
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -126,7 +72,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuPro
           
           {/* Menu panel */}
           <motion.div
-            variants={menuVariants}
+            variants={modalPanel}
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -135,7 +81,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuPro
             <div className="flex flex-col h-full">
               <motion.div 
                 className="flex justify-end p-4"
-                variants={menuItemVariants}
+                variants={menuItem}
               >
                 <motion.button 
                   type="button"
@@ -168,7 +114,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuPro
                   {menuItems.map((item) => (
                     <motion.li 
                       key={item.title}
-                      variants={menuItemVariants}
+                      variants={menuItem}
                     >
                       <button
                         onClick={() => handleMenuClick(item.href)}
@@ -180,7 +126,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuPro
                   ))}
                   
                   {/* Join Waitlist Button */}
-                  <motion.li variants={menuItemVariants} className="pt-4">
+                  <motion.li variants={menuItem} className="pt-4">
                     <a
                       href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"
                       target="_blank"
