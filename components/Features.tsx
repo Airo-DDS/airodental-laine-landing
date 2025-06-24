@@ -3,14 +3,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { ClipboardEdit, MessageSquare, User } from "lucide-react"
-import { fadeInUp } from "@/lib/animations"
-
-// Enhanced animation variants
-const cardHoverTransition = {
-  type: "spring",
-  stiffness: 300,
-  damping: 20
-}
+import { fadeInUp, cardHover, iconHover } from "@/lib/animations"
 
 export default function Features() {
   return (
@@ -52,18 +45,12 @@ export default function Features() {
             variants={fadeInUp}
             custom={1}
             className="border border-[#E4E4E7] p-[18px_22px] rounded-[10px] bg-white"
-            whileHover={{
-              y: -8,
-              boxShadow:
-                "0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
-              transition: cardHoverTransition,
-            }}
+            whileHover={cardHover}
           >
             <div className="flex items-center mb-3">
               <motion.div
                 className="text-[#F57C3A] mr-3"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                whileHover={iconHover}
               >
                 <ClipboardEdit size={32} strokeWidth={1.75} />
               </motion.div>
@@ -81,18 +68,12 @@ export default function Features() {
             variants={fadeInUp}
             custom={1.5}
             className="border border-[#E4E4E7] p-[18px_22px] rounded-[10px] bg-white"
-            whileHover={{
-              y: -8,
-              boxShadow:
-                "0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
-              transition: cardHoverTransition,
-            }}
+            whileHover={cardHover}
           >
             <div className="flex items-center mb-3">
               <motion.div
                 className="text-[#F57C3A] mr-3"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                whileHover={iconHover}
               >
                 <MessageSquare size={32} strokeWidth={1.75} />
               </motion.div>
@@ -110,18 +91,12 @@ export default function Features() {
             variants={fadeInUp}
             custom={2}
             className="border border-[#E4E4E7] p-[18px_22px] rounded-[10px] bg-white"
-            whileHover={{
-              y: -8,
-              boxShadow:
-                "0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
-              transition: cardHoverTransition,
-            }}
+            whileHover={cardHover}
           >
             <div className="flex items-center mb-3">
               <motion.div
                 className="text-[#F57C3A] mr-3"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                whileHover={iconHover}
               >
                 <User size={32} strokeWidth={1.75} />
               </motion.div>

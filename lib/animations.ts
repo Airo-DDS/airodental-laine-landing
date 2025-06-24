@@ -104,6 +104,27 @@ export const buttonHover: Variants = {
   }
 };
 
+// Card hover transitions
+export const cardHover = {
+  y: -8,
+  boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
+  transition: {
+    type: "spring" as const,
+    stiffness: 300,
+    damping: 20
+  }
+};
+
+export const iconHover = {
+  scale: 1.1,
+  rotate: 5,
+  transition: {
+    type: "spring" as const,
+    stiffness: 400,
+    damping: 10
+  }
+};
+
 // Modal/Menu animation variants
 export const modalBackdrop: Variants = {
   hidden: { 
