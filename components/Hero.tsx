@@ -17,7 +17,7 @@ const fadeInUp = {
     transition: {
       delay: custom * 0.2,
       duration: 0.6,
-      ease: [0.215, 0.61, 0.355, 1] // Cubic bezier for a professional easing
+      ease: "easeOut" // Custom easing for natural motion
     }
   })
 }

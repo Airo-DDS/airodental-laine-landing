@@ -37,17 +37,16 @@ const menuVariants = {
     x: 0,
     transition: {
       type: "spring",
-      damping: 25,
-      stiffness: 300,
-      when: "beforeChildren",
-      staggerChildren: 0.1
+      damping: 20,
+      stiffness: 100,
+      ease: "easeOut"
     }
   },
   exit: {
     x: "100%",
     transition: {
       duration: 0.3,
-      ease: [0.6, 0.05, 0.01, 0.99]
+      ease: "easeInOut"
     }
   }
 }

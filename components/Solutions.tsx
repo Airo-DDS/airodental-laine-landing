@@ -12,7 +12,7 @@ const fadeIn = {
     transition: {
       delay: custom * 0.15,
       duration: 0.7,
-      ease: [0.215, 0.61, 0.355, 1] // Custom cubic bezier for natural motion
+      ease: "easeOut" // Custom easing for natural motion
     }
   })
 };
@@ -24,7 +24,7 @@ const scaleIn = {
     scale: 1,
     transition: {
       duration: 0.7,
-      ease: [0, 0.71, 0.2, 1.01] // "Spring" like bounce effect
+      ease: "easeOut" // Spring-like effect
     }
   }
 };

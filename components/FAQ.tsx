@@ -18,7 +18,7 @@ const fadeInUp = {
     transition: {
       delay: custom * 0.15,
       duration: 0.7,
-      ease: [0.215, 0.61, 0.355, 1]
+      ease: "easeOut"
     }
   })
 };
