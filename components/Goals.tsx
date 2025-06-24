@@ -4,15 +4,15 @@ import { motion } from "framer-motion"
 import Image from "next/image";
 
 // Enhanced animation variants
-const fadeIn = {
+const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: (custom = 0) => ({
+  visible: (custom: number) => ({
     opacity: 1,
     y: 0,
     transition: {
       delay: custom * 0.15,
       duration: 0.7,
-      ease: [0.215, 0.61, 0.355, 1] // Custom cubic bezier for natural motion
+      ease: "easeOut" // Custom easing for natural motion
     }
   })
 };
@@ -80,19 +80,19 @@ export default function Goals() {
       >
         <motion.div 
           className="text-center mb-[60px]"
-          variants={fadeIn}
+          variants={fadeInUp}
           custom={0}
         >
           <motion.div 
             className="text-[18px] sm:text-[20px] md:text-[24px] font-normal font-[family-name:var(--font-geist-sans)] text-[#808080] tracking-wide mb-[8px] sm:mb-[12px]"
-            variants={fadeIn}
+            variants={fadeInUp}
             custom={0.2}
           >
             OUR GOALS
           </motion.div>
           <motion.div 
             className="text-[28px] sm:text-[32px] md:text-[40px] font-normal font-[family-name:var(--font-geist-sans)] text-black leading-tight"
-            variants={fadeIn}
+            variants={fadeInUp}
             custom={0.5}
           >
             Complete AI Dental Ecosystem
@@ -104,7 +104,7 @@ export default function Goals() {
             <motion.div
               key={item.id}
               className="flex flex-col md:flex-row items-start"
-              variants={fadeIn}
+              variants={fadeInUp}
               custom={index * 0.3 + 0.7}
               whileHover={{ 
                 y: -5, 

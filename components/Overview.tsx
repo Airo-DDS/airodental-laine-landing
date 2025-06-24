@@ -12,7 +12,7 @@ const fadeIn = {
     transition: {
       delay: custom * 0.2,
       duration: 0.7,
-      ease: [0.215, 0.61, 0.355, 1]
+      ease: "easeOut"
     }
   })
 }
@@ -25,10 +25,12 @@ const slideInRight = {
     transition: {
       delay: custom * 0.2,
       duration: 0.8,
-      ease: [0.215, 0.61, 0.355, 1]
+      ease: "easeOut"
     }
   })
 }
+
+
 
 export default function Overview() {
   const videoRef = useRef<HTMLVideoElement>(null);

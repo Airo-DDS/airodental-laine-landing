@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { ClipboardEdit, MessageSquare, User } from "lucide-react"
 
 // Enhanced animation variants
-const fadeIn = {
+const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (custom: number) => ({
     opacity: 1,
@@ -13,7 +13,7 @@ const fadeIn = {
     transition: {
       delay: custom * 0.15,
       duration: 0.7,
-      ease: [0.215, 0.61, 0.355, 1] // Custom cubic bezier for natural motion
+      ease: "easeOut" // Custom easing for natural motion
     }
   })
 }
@@ -35,14 +35,14 @@ export default function Features() {
           viewport={{ once: true, amount: 0.1 }}
         >
           <motion.h2
-            variants={fadeIn}
+            variants={fadeInUp}
             custom={0}
             className="text-[20px] font-medium font-[family-name:var(--font-geist-sans)] text-[#808080] mb-2"
           >
             FIELD PROVEN
           </motion.h2>
           <motion.p
-            variants={fadeIn}
+            variants={fadeInUp}
             custom={0.5}
             className="text-[36px] sm:text-[42px] md:text-[48px] font-normal font-[family-name:var(--font-geist-sans)] text-black leading-tight"
           >
@@ -61,7 +61,7 @@ export default function Features() {
         >
           {/* Card 1 */}
           <motion.div
-            variants={fadeIn}
+            variants={fadeInUp}
             custom={1}
             className="border border-[#E4E4E7] p-[18px_22px] rounded-[10px] bg-white"
             whileHover={{
@@ -90,7 +90,7 @@ export default function Features() {
 
           {/* Card 2 */}
           <motion.div
-            variants={fadeIn}
+            variants={fadeInUp}
             custom={1.5}
             className="border border-[#E4E4E7] p-[18px_22px] rounded-[10px] bg-white"
             whileHover={{
@@ -119,7 +119,7 @@ export default function Features() {
 
           {/* Card 3 */}
           <motion.div
-            variants={fadeIn}
+            variants={fadeInUp}
             custom={2}
             className="border border-[#E4E4E7] p-[18px_22px] rounded-[10px] bg-white"
             whileHover={{
