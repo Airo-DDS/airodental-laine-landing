@@ -4,8 +4,9 @@ import { useState, useRef, useEffect } from "react"
 import type { FC } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { Play, Pause, SkipBack, SkipForward, Maximize2 } from "lucide-react"
+import { Play, Pause, SkipBack, SkipForward, Maximize2, Mic } from "lucide-react"
 import AudioTranscriptModal from "./AudioTranscriptModal"
+import VapiModal from "./VapiModal"
 
 // Animation variants for consistent, reusable animations
 const fadeInUp = {
@@ -87,9 +88,10 @@ export default function Hero() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(150); // Default 2:30 in seconds
   const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAudioModalOpen, setIsAudioModalOpen] = useState(false);
+  const [isVapiModalOpen, setIsVapiModalOpen] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
+  
   useEffect(() => {
     // Create audio element
     const audio = new Audio('/patient-urgent-scheduling.mp3');
@@ -226,24 +228,38 @@ export default function Hero() {
               Streamline communication, automate tasks, enhance patient care
             </p>
             
-            <motion.div
-              whileHover={{ 
-                scale: 1.05,
-                transition: { duration: 0.2 }
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <a 
-                href="#learn-more"
-                className="inline-flex items-center px-8 py-3 bg-transparent border-2 border-black text-black rounded-full hover:bg-black hover:text-white transition-all font-medium"
+            {/* Buttons Container - Side by Side */}
+            <div className="flex flex-col sm:flex-row gap-4 items-start">
+              <motion.div
+                whileHover={{ 
+                  scale: 1.05,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ scale: 0.98 }}
               >
-                Learn More
-                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <title>Arrow down icon</title>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </a>
-            </motion.div>
+                <a 
+                  href="#learn-more"
+                  className="inline-flex items-center px-8 py-3 bg-transparent border-2 border-black text-black rounded-full hover:bg-black hover:text-white transition-all font-medium"
+                >
+                  Learn More
+                  <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <title>Arrow down icon</title>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </a>
+              </motion.div>
+              
+              {/* Talk to LAINE Button */}
+              <motion.button
+                onClick={() => setIsVapiModalOpen(true)}
+                className="inline-flex items-center px-8 py-3 bg-[#C33764] text-white rounded-full font-medium transition-all duration-300 hover:bg-opacity-90"
+                whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Mic size={20} className="mr-2" />
+                Talk to LAINE
+              </motion.button>
+            </div>
           </motion.div>
 
           {/* Right Column - Audio Player */}
@@ -305,7 +321,7 @@ export default function Hero() {
             
             <button 
               type="button"
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => setIsAudioModalOpen(true)}
               className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
               aria-label="Fullscreen"
             >
@@ -317,8 +333,14 @@ export default function Hero() {
 
       {/* Audio Transcript Modal */}
       <AudioTranscriptModal 
-        open={isModalOpen} 
-        onOpenChange={setIsModalOpen} 
+        open={isAudioModalOpen} 
+        onOpenChange={setIsAudioModalOpen} 
+      />
+      
+      {/* Vapi Modal */}
+      <VapiModal 
+        isOpen={isVapiModalOpen} 
+        onClose={() => setIsVapiModalOpen(false)} 
       />
     </div>
   )
