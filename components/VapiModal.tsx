@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { X } from "lucide-react"
+import { X, Phone } from "lucide-react"
 import RadialCard from "./RadialCard"
 import { modalSpring } from "@/lib/animations"
 
@@ -56,8 +56,26 @@ export default function VapiModal({ isOpen, onClose }: VapiModalProps) {
             </div>
             
             {/* RadialCard Component */}
-            <div className="flex justify-center">
+            <div className="flex justify-center mb-6">
               <RadialCard />
+            </div>
+            
+            {/* Phone Section */}
+            <div className="border-t border-gray-100 pt-6">
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-3">
+                  <Phone size={20} className="text-gray-500 mr-2" />
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Talk to Laine on your Phone
+                  </h3>
+                </div>
+                <a 
+                  href="tel:+19104181846"
+                  className="inline-flex items-center justify-center px-4 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg transition-colors text-gray-900 font-medium text-lg"
+                >
+                  +1 (910) 418 1846
+                </a>
+              </div>
             </div>
             
             {/* Instructions */}

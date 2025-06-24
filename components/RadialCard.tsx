@@ -58,8 +58,9 @@ const RadialCard: React.FC = () => {
                 y1={y1}
                 x2={x2}
                 y2={y2}
-                className="stroke-current text-black dark:text-white dark:opacity-70 opacity-70"
+                stroke="#c33764"
                 strokeWidth="2"
+                opacity="0.7"
                 initial={{ x2: x1, y2: y1 }}
                 animate={{ x2, y2 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
