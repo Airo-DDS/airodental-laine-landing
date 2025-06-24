@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { fadeInUp, slideTextVariants, slideImageVariants } from "@/lib/animations";
 
 const slides = [
   {
@@ -46,59 +47,6 @@ const slides = [
 export default function HowItWorks() {
   const [current, setCurrent] = useState(0);
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (custom: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: custom * 0.15,
-        duration: 0.7,
-        ease: [0.215, 0.61, 0.355, 1]
-      }
-    })
-  };
-
-  const variantsText = {
-    hidden: { opacity: 0, x: -30 },
-    enter: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { 
-        duration: 0.6,
-        ease: [0.215, 0.61, 0.355, 1]
-      } 
-    },
-    exit: { 
-      opacity: 0, 
-      x: 30, 
-      transition: { 
-        duration: 0.4,
-        ease: [0.215, 0.61, 0.355, 1]
-      } 
-    },
-  };
-
-  const variantsImage = {
-    hidden: { opacity: 0, x: 30 },
-    enter: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { 
-        duration: 0.6,
-        ease: [0.215, 0.61, 0.355, 1]
-      } 
-    },
-    exit: { 
-      opacity: 0, 
-      x: -30, 
-      transition: { 
-        duration: 0.4,
-        ease: [0.215, 0.61, 0.355, 1]
-      } 
-    },
-  };
-
   const prev = () => setCurrent((i) => Math.max(i - 1, 0));
   const next = () => setCurrent((i) => Math.min(i + 1, slides.length - 1));
 
@@ -136,7 +84,7 @@ export default function HowItWorks() {
               <motion.div
                 key={`text-${current}`}
                 custom={current}
-                variants={variantsText}
+                variants={slideTextVariants}
                 initial="hidden"
                 animate="enter"
                 exit="exit"
@@ -160,7 +108,7 @@ export default function HowItWorks() {
               <motion.div
                 key={`img-${current}`}
                 custom={current}
-                variants={variantsImage}
+                variants={slideImageVariants}
                 initial="hidden"
                 animate="enter"
                 exit="exit"

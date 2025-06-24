@@ -3,57 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: custom * 0.15,
-      duration: 0.7,
-      ease: [0.215, 0.61, 0.355, 1]
-    }
-  })
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: 0.3 + custom * 0.2,
-      duration: 0.6,
-      ease: [0.215, 0.61, 0.355, 1]
-    }
-  }),
-  hover: {
-    y: -8,
-    boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
-    transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 20
-    }
-  }
-};
-
-const buttonVariants = {
-  hover: {
-    scale: 1.05,
-    boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 10
-    }
-  },
-  tap: {
-    scale: 0.98
-  }
-};
+import { fadeInUp, pricingCardVariants, buttonHover } from "@/lib/animations";
 
 // Pricing plans data
 const pricingPlans = [
@@ -145,7 +95,7 @@ export default function Pricing() {
           {pricingPlans.map((plan, index) => (
             <motion.div
               key={plan.title}
-              variants={cardVariants}
+              variants={pricingCardVariants}
               custom={index}
               whileHover="hover"
               className="bg-white border border-[#E4E4E7] rounded-[10px] p-6 transition-all duration-300"
@@ -185,7 +135,7 @@ export default function Pricing() {
 
               {plan.isEnterprise && (
                 <motion.div
-                  variants={buttonVariants}
+                  variants={buttonHover}
                   whileHover="hover"
                   whileTap="tap"
                   className="mt-4"
@@ -222,7 +172,7 @@ export default function Pricing() {
 
           <motion.div variants={fadeInUp} custom={0.5} className="flex flex-col space-y-4 w-full md:w-auto">
             <motion.a 
-              variants={buttonVariants}
+              variants={buttonHover}
               whileHover="hover"
               whileTap="tap"
               href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"
@@ -233,7 +183,7 @@ export default function Pricing() {
               Join Waitlist
             </motion.a>
             <motion.a 
-              variants={buttonVariants}
+              variants={buttonHover}
               whileHover="hover"
               whileTap="tap"
               href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"

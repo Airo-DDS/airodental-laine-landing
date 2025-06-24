@@ -150,6 +150,70 @@ export const modalSpring = {
   damping: 20
 };
 
+// Pricing component animations
+export const pricingCardVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (custom: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.3 + custom * 0.2,
+      duration: 0.6,
+      ease: EASING.easeOut,
+    }
+  }),
+  hover: {
+    y: -8,
+    boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
+    transition: {
+      type: "spring" as const,
+      stiffness: 300,
+      damping: 20
+    }
+  }
+};
+
+// HowItWorks slide animations
+export const slideTextVariants: Variants = {
+  hidden: { opacity: 0, x: -30 },
+  enter: { 
+    opacity: 1, 
+    x: 0, 
+    transition: { 
+      duration: 0.6,
+      ease: EASING.easeOut,
+    } 
+  },
+  exit: { 
+    opacity: 0, 
+    x: 30, 
+    transition: { 
+      duration: 0.4,
+      ease: EASING.easeOut,
+    } 
+  },
+};
+
+export const slideImageVariants: Variants = {
+  hidden: { opacity: 0, x: 30 },
+  enter: { 
+    opacity: 1, 
+    x: 0, 
+    transition: { 
+      duration: 0.6,
+      ease: EASING.easeOut,
+    } 
+  },
+  exit: { 
+    opacity: 0, 
+    x: -30, 
+    transition: { 
+      duration: 0.4,
+      ease: EASING.easeOut,
+    } 
+  },
+};
+
 // Modal/Menu animation variants
 export const modalBackdrop: Variants = {
   hidden: { 
