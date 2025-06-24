@@ -240,7 +240,7 @@ export default function Hero() {
               {/* Talk to LAINE Button */}
               <motion.button
                 onClick={() => setIsVapiModalOpen(true)}
-                className="inline-flex items-center px-8 py-3 bg-[#C33764] text-white rounded-full font-medium transition-all duration-300 hover:bg-opacity-90"
+                className="inline-flex items-center px-8 py-3 bg-[#C33764] text-white rounded-full font-medium transition-all duration-300 hover:bg-opacity-90 cursor-pointer"
                 whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.98 }}
               >
