@@ -77,13 +77,7 @@ export default function VapiModal({ isOpen, onClose }: VapiModalProps) {
                 </a>
               </div>
             </div>
-            
-            {/* Instructions */}
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-500">
-                Speak naturally - LAINE is ready to assist with your dental practice needs
-              </p>
-            </div>
+          
           </motion.div>
         </motion.div>
       )}
