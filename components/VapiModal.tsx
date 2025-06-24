@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
 import RadialCard from "./RadialCard"
+import { modalSpring } from "@/lib/animations"
 
 interface VapiModalProps {
   isOpen: boolean
@@ -35,7 +36,7 @@ export default function VapiModal({ isOpen, onClose }: VapiModalProps) {
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            transition={modalSpring}
           >
             {/* Close Button */}
             <button

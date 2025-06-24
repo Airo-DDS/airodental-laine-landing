@@ -2,14 +2,10 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image";
-import { fadeIn, scaleIn } from "@/lib/animations";
+import { fadeIn, scaleIn, cardSpringHover } from "@/lib/animations";
 
 // Enhanced animation variants
-const cardHoverTransition = {
-  type: "spring",
-  stiffness: 300,
-  damping: 20
-};
+
 
 interface SolutionItem {
   id: string;
@@ -74,10 +70,7 @@ export default function Solutions() {
             <motion.div 
               className="w-full"
               variants={scaleIn}
-              whileHover={{ 
-                scale: 1.03,
-                transition: cardHoverTransition
-              }}
+              whileHover={cardSpringHover}
             >
               <Image
                 src={solutionItems[0].image}
@@ -110,10 +103,7 @@ export default function Solutions() {
             <motion.div 
               className="w-full md:order-last"
               variants={scaleIn}
-              whileHover={{ 
-                scale: 1.03,
-                transition: cardHoverTransition
-              }}
+              whileHover={cardSpringHover}
             >
               <Image
                 src={solutionItems[1].image}

@@ -2,14 +2,7 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image";
-import { fadeInUp } from "@/lib/animations"
-
-// Enhanced animation variants
-const itemHoverTransition = {
-  type: "spring",
-  stiffness: 300,
-  damping: 20
-};
+import { fadeInUp, goalItemHover, iconHover } from "@/lib/animations"
 
 interface GoalItem {
   id: string;
@@ -94,18 +87,11 @@ export default function Goals() {
               className="flex flex-col md:flex-row items-start"
               variants={fadeInUp}
               custom={index * 0.3 + 0.7}
-              whileHover={{ 
-                y: -5, 
-                transition: itemHoverTransition
-              }}
+              whileHover={goalItemHover}
             >
               <motion.div 
                 className="flex-shrink-0 w-32 h-32 mx-auto md:mx-0 md:mr-[90px] mb-6 md:mb-0"
-                whileHover={{ 
-                  scale: 1.05,
-                  rotate: 5,
-                  transition: { type: "spring", stiffness: 400, damping: 10 }
-                }}
+                whileHover={iconHover}
               >
                 <Image
                   src={item.icon}

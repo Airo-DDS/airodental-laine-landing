@@ -125,6 +125,31 @@ export const iconHover = {
   }
 };
 
+export const goalItemHover = {
+  y: -5,
+  transition: {
+    type: "spring" as const,
+    stiffness: 300,
+    damping: 20
+  }
+};
+
+// Additional hover transitions
+export const cardSpringHover = {
+  scale: 1.03,
+  transition: {
+    type: "spring" as const,
+    stiffness: 300,
+    damping: 20
+  }
+};
+
+export const modalSpring = {
+  type: "spring" as const,
+  stiffness: 300,
+  damping: 20
+};
+
 // Modal/Menu animation variants
 export const modalBackdrop: Variants = {
   hidden: { 
