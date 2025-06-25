@@ -12,10 +12,19 @@ interface Assistant {
 }
 
 // GET endpoint to fetch current assistant data
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url);
+    const assistantType = searchParams.get('assistant'); // 'marketing' or default (main)
+    
     const vapiApiKey = process.env.VAPI_API_KEY;
-    const assistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
+    let assistantId: string | undefined;
+    
+    if (assistantType === 'marketing') {
+      assistantId = process.env.NEXT_PUBLIC_VAPI_MARKETING_ASSISTANT_ID;
+    } else {
+      assistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
+    }
     
     if (!vapiApiKey) {
       return NextResponse.json(
@@ -26,7 +35,7 @@ export async function GET() {
 
     if (!assistantId) {
       return NextResponse.json(
-        { error: 'Assistant ID not configured' },
+        { error: `${assistantType === 'marketing' ? 'Marketing assistant' : 'Main assistant'} ID not configured` },
         { status: 500 }
       );
     }
@@ -59,6 +68,7 @@ export async function GET() {
     return NextResponse.json({
       success: true,
       assistant: assistantData,
+      assistantType: assistantType || 'main',
       currentSystemPrompt: systemMessage?.content || ''
     });
 

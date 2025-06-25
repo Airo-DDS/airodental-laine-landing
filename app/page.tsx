@@ -7,6 +7,7 @@ import Pricing from "@/components/Pricing"
 import FAQ from "@/components/FAQ"
 import CTA from "@/components/CTA"
 import Footer from "@/components/Footer"
+import LaineMarketing from "@/components/LaineMarketing"
 
 export const metadata: Metadata = {
   title: "Airodental | Revolutionizing Dental Practices with AI",
@@ -26,6 +27,7 @@ export default function Home() {
         <CTA />
       </main>
       <Footer />
+      <LaineMarketing />
     </div>
   )
 }

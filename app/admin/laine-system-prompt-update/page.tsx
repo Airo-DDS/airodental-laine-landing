@@ -4,16 +4,25 @@ import { useState, useEffect } from 'react'
 import { toast, Toaster } from 'sonner'
 
 export default function SystemPromptUpdatePage() {
+  // States for Main Assistant
   const [systemPrompt, setSystemPrompt] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingCurrent, setIsLoadingCurrent] = useState(true)
+  
+  // States for Marketing Assistant
+  const [marketingSystemPrompt, setMarketingSystemPrompt] = useState('')
+  const [isMarketingLoading, setIsMarketingLoading] = useState(false)
+  const [isMarketingLoadingCurrent, setIsMarketingLoadingCurrent] = useState(true)
+  
+  // Auth states
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [adminKey, setAdminKey] = useState('')
 
-  // Load current system prompt when authenticated
+  // Load current system prompts when authenticated
   useEffect(() => {
     if (isAuthenticated) {
       loadCurrentSystemPrompt()
+      loadCurrentMarketingSystemPrompt()
     }
   }, [isAuthenticated])
 
@@ -29,18 +38,45 @@ export default function SystemPromptUpdatePage() {
       if (response.ok) {
         setSystemPrompt(data.currentSystemPrompt || '')
         if (data.currentSystemPrompt) {
-          toast.success('Current system prompt loaded successfully')
+          toast.success('Main assistant system prompt loaded successfully')
         } else {
-          toast.info('No system prompt found - you can create one')
+          toast.info('No main assistant system prompt found - you can create one')
         }
       } else {
-        toast.error(data.error || 'Failed to load current system prompt')
+        toast.error(data.error || 'Failed to load main assistant system prompt')
       }
     } catch (error) {
       console.error('Error loading current prompt:', error)
-      toast.error('Failed to load current system prompt')
+      toast.error('Failed to load main assistant system prompt')
     } finally {
       setIsLoadingCurrent(false)
+    }
+  }
+
+  const loadCurrentMarketingSystemPrompt = async () => {
+    setIsMarketingLoadingCurrent(true)
+    try {
+      const response = await fetch('/api/assistant/update?assistant=marketing', {
+        method: 'GET',
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setMarketingSystemPrompt(data.currentSystemPrompt || '')
+        if (data.currentSystemPrompt) {
+          toast.success('Marketing assistant system prompt loaded successfully')
+        } else {
+          toast.info('No marketing assistant system prompt found - you can create one')
+        }
+      } else {
+        toast.error(data.error || 'Failed to load marketing assistant system prompt')
+      }
+    } catch (error) {
+      console.error('Error loading marketing prompt:', error)
+      toast.error('Failed to load marketing assistant system prompt')
+    } finally {
+      setIsMarketingLoadingCurrent(false)
     }
   }
 
@@ -60,7 +96,7 @@ export default function SystemPromptUpdatePage() {
     e.preventDefault()
     
     if (!systemPrompt.trim()) {
-      toast.error('System prompt cannot be empty')
+      toast.error('Main assistant system prompt cannot be empty')
       return
     }
 
@@ -81,15 +117,52 @@ export default function SystemPromptUpdatePage() {
       const data = await response.json()
 
       if (response.ok) {
-        toast.success('System prompt updated successfully! 🎉')
+        toast.success('Main assistant system prompt updated successfully! 🎉')
       } else {
-        toast.error(data.error || 'Failed to update system prompt')
+        toast.error(data.error || 'Failed to update main assistant system prompt')
       }
     } catch (error) {
       console.error('Error:', error)
       toast.error('Network error occurred')
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const handleUpdateMarketingPrompt = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!marketingSystemPrompt.trim()) {
+      toast.error('Marketing assistant system prompt cannot be empty')
+      return
+    }
+
+    setIsMarketingLoading(true)
+
+    try {
+      const response = await fetch('/api/assistant/update', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          systemPrompt: marketingSystemPrompt.trim(),
+          assistantId: process.env.NEXT_PUBLIC_VAPI_MARKETING_ASSISTANT_ID
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        toast.success('Marketing assistant system prompt updated successfully! 🎉')
+      } else {
+        toast.error(data.error || 'Failed to update marketing assistant system prompt')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      toast.error('Network error occurred')
+    } finally {
+      setIsMarketingLoading(false)
     }
   }
 
@@ -131,13 +204,13 @@ export default function SystemPromptUpdatePage() {
     )
   }
 
-  if (isLoadingCurrent) {
+  if (isLoadingCurrent || isMarketingLoadingCurrent) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <Toaster position="top-center" richColors />
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#09474C] mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading current system prompt...</p>
+          <p className="text-gray-600">Loading current system prompts...</p>
         </div>
       </div>
     )
@@ -147,13 +220,19 @@ export default function SystemPromptUpdatePage() {
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <Toaster position="top-center" richColors />
       
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto space-y-8">
+        {/* Header */}
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">LAINE System Prompt Configuration</h1>
+          <p className="text-gray-600">Update the system prompts for both LAINE assistants.</p>
+        </div>
+
+        {/* Main Assistant Section */}
         <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">LAINE System Prompt Configuration</h1>
-            <p className="text-gray-600">Update the system prompt that defines LAINE&apos;s behavior and personality.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Main Assistant (Unintegrated)</h2>
+            <p className="text-gray-600">System prompt for the main LAINE assistant used in the hero section.</p>
             
-            {/* Reload Button */}
             <div className="mt-4">
               <button
                 onClick={loadCurrentSystemPrompt}
@@ -176,11 +255,11 @@ export default function SystemPromptUpdatePage() {
                 onChange={(e) => setSystemPrompt(e.target.value)}
                 rows={12}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#09474C] focus:border-transparent resize-none text-sm font-mono"
-                placeholder="Enter the system prompt that will define LAINE&apos;s behavior, personality, and capabilities..."
+                placeholder="Enter the system prompt for the main LAINE assistant..."
                 required
               />
               <p className="mt-2 text-sm text-gray-500">
-                This prompt will be sent to the AI model to define how LAINE should respond to users.
+                This prompt defines how the main LAINE assistant behaves and responds to users.
               </p>
             </div>
 
@@ -210,26 +289,99 @@ export default function SystemPromptUpdatePage() {
                       <span>Updating...</span>
                     </>
                   ) : (
-                    <span>Update System Prompt</span>
+                    <span>Update Main Assistant</span>
                   )}
                 </button>
               </div>
             </div>
           </form>
-
-          <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-            <h3 className="font-medium text-blue-900 mb-2">💡 Tips for Writing Effective System Prompts:</h3>
-            <ul className="text-sm text-blue-800 space-y-1">
-              <li>• Define LAINE&apos;s role and expertise clearly</li>
-              <li>• Specify the tone and personality you want</li>
-              <li>• Include any specific instructions or constraints</li>
-              <li>• Mention how to handle dental-specific scenarios</li>
-              <li>• Keep it concise but comprehensive</li>
-            </ul>
-          </div>
         </div>
 
-        <div className="mt-6 text-center">
+        {/* Marketing Assistant Section */}
+        <div className="bg-white rounded-lg shadow-lg p-8">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Marketing Assistant</h2>
+            <p className="text-gray-600">System prompt for the marketing LAINE assistant in the floating button.</p>
+            
+            <div className="mt-4">
+              <button
+                onClick={loadCurrentMarketingSystemPrompt}
+                disabled={isMarketingLoadingCurrent}
+                className="text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-md transition-colors duration-200 disabled:opacity-50"
+              >
+                {isMarketingLoadingCurrent ? 'Loading...' : 'Reload Current Prompt'}
+              </button>
+            </div>
+          </div>
+
+          <form onSubmit={handleUpdateMarketingPrompt} className="space-y-6">
+            <div>
+              <label htmlFor="marketingSystemPrompt" className="block text-lg font-medium text-gray-700 mb-3">
+                Marketing System Prompt
+              </label>
+              <textarea
+                id="marketingSystemPrompt"
+                value={marketingSystemPrompt}
+                onChange={(e) => setMarketingSystemPrompt(e.target.value)}
+                rows={12}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c33764] focus:border-transparent resize-none text-sm font-mono"
+                placeholder="Enter the system prompt for the marketing LAINE assistant..."
+                required
+              />
+              <p className="mt-2 text-sm text-gray-500">
+                This prompt defines how the marketing LAINE assistant behaves when users engage via the floating button.
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between pt-6 border-t border-gray-200">
+              <div className="text-sm text-gray-500">
+                Characters: {marketingSystemPrompt.length}
+              </div>
+              
+              <div className="flex space-x-4">
+                <button
+                  type="button"
+                  onClick={() => setMarketingSystemPrompt('')}
+                  className="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200"
+                  disabled={isMarketingLoading}
+                >
+                  Clear
+                </button>
+                
+                <button
+                  type="submit"
+                  disabled={isMarketingLoading || !marketingSystemPrompt.trim()}
+                  className="px-8 py-2 bg-[#c33764] text-white rounded-md hover:bg-[#a12b54] transition-colors duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                >
+                  {isMarketingLoading ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      <span>Updating...</span>
+                    </>
+                  ) : (
+                    <span>Update Marketing Assistant</span>
+                  )}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        {/* Tips Section */}
+        <div className="bg-blue-50 rounded-lg p-6">
+          <h3 className="font-medium text-blue-900 mb-2">💡 Tips for Writing Effective System Prompts:</h3>
+          <ul className="text-sm text-blue-800 space-y-1">
+                         <li>• Define LAINE&apos;s role and expertise clearly</li>
+            <li>• Specify the tone and personality you want</li>
+            <li>• Include any specific instructions or constraints</li>
+            <li>• Mention how to handle dental-specific scenarios</li>
+            <li>• For marketing: Focus on lead generation and product education</li>
+            <li>• For main assistant: Focus on technical support and guidance</li>
+            <li>• Keep it concise but comprehensive</li>
+          </ul>
+        </div>
+
+        <div className="text-center">
           <button
             onClick={() => setIsAuthenticated(false)}
             className="text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200"
