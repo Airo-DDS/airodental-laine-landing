@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     if (assistantType === 'marketing') {
       assistantId = process.env.VAPI_MARKETING_ASSISTANT_ID;
     } else {
-      assistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
+      assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID || process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
     }
     
     if (!vapiApiKey) {
@@ -84,12 +84,27 @@ export async function GET(request: NextRequest) {
 // PATCH endpoint to update system prompt
 export async function PATCH(request: NextRequest) {
   try {
-    const { systemPrompt, assistantId } = await request.json();
+    const { systemPrompt, assistantType } = await request.json();
 
-    if (!systemPrompt || !assistantId) {
+    if (!systemPrompt) {
       return NextResponse.json(
-        { error: 'System prompt and assistant ID are required' },
+        { error: 'System prompt is required' },
         { status: 400 }
+      );
+    }
+
+    // Determine assistant ID based on type
+    let assistantId: string | undefined;
+    if (assistantType === 'marketing') {
+      assistantId = process.env.VAPI_MARKETING_ASSISTANT_ID;
+    } else {
+      assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID || process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
+    }
+
+    if (!assistantId) {
+      return NextResponse.json(
+        { error: `${assistantType === 'marketing' ? 'Marketing assistant' : 'Main assistant'} ID not configured` },
+        { status: 500 }
       );
     }
 
