@@ -147,7 +147,7 @@ export default function SystemPromptUpdatePage() {
         },
         body: JSON.stringify({
           systemPrompt: marketingSystemPrompt.trim(),
-          assistantId: process.env.NEXT_PUBLIC_VAPI_MARKETING_ASSISTANT_ID
+          assistantId: process.env.VAPI_MARKETING_ASSISTANT_ID
         }),
       })
 

@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     let assistantId: string | undefined;
     
     if (assistantType === 'marketing') {
-      assistantId = process.env.NEXT_PUBLIC_VAPI_MARKETING_ASSISTANT_ID;
+      assistantId = process.env.VAPI_MARKETING_ASSISTANT_ID;
     } else {
       assistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
     }
