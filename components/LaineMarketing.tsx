@@ -55,9 +55,9 @@ const useMarketingVapi = () => {
   }, [initializeVapi]);
 
   const toggleCall = async () => {
-    const marketingAssistantId = process.env.NEXT_PUBLIC_VAPI_MARKETING_ASSISTANT_ID;
+    const marketingAssistantId = process.env.VAPI_MARKETING_ASSISTANT_ID;
     if (!marketingAssistantId) {
-      console.error('NEXT_PUBLIC_VAPI_MARKETING_ASSISTANT_ID is not defined');
+      console.error('VAPI_MARKETING_ASSISTANT_ID is not defined');
       return;
     }
 
