@@ -70,10 +70,10 @@ export default function VapiModal({ isOpen, onClose }: VapiModalProps) {
                   </h3>
                 </div>
                 <a 
-                  href="tel:+19104181846"
+                  href="tel:+19016104179"
                   className="inline-flex items-center justify-center px-4 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg transition-colors text-gray-900 font-medium text-lg"
                 >
-                  +1 (910) 418 1846
+                  +1 (901) 610 4179
                 </a>
               </div>
             </div>
