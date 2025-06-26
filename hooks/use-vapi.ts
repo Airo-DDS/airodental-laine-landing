@@ -2,17 +2,43 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import Vapi from '@vapi-ai/web';
 
 const publicKey = process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY;
-const assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID;
+
+interface AssistantConfig {
+  unintegratedAssistantId: string;
+  marketingAssistantId: string;
+}
 
 const useVapi = () => {
   const [volumeLevel, setVolumeLevel] = useState(0);
   const [isSessionActive, setIsSessionActive] = useState(false);
   const [conversation, setConversation] = useState<{ role: string, text: string }[]>([]);
+  const [assistantConfig, setAssistantConfig] = useState<AssistantConfig | null>(null);
+  const [configLoading, setConfigLoading] = useState(true);
+  const [configError, setConfigError] = useState<string | null>(null);
   const vapiRef = useRef<any>(null);
+
+  // Fetch assistant configuration from API
+  const fetchAssistantConfig = useCallback(async () => {
+    try {
+      setConfigLoading(true);
+      const response = await fetch('/api/assistant/config');
+      if (!response.ok) {
+        throw new Error('Failed to fetch assistant configuration');
+      }
+      const config = await response.json();
+      setAssistantConfig(config);
+      setConfigError(null);
+    } catch (error) {
+      console.error('Error fetching assistant config:', error);
+      setConfigError(error instanceof Error ? error.message : 'Unknown error');
+    } finally {
+      setConfigLoading(false);
+    }
+  }, []);
 
   const initializeVapi = useCallback(() => {
     if (!publicKey) {
-      console.error('VAPI_UNINTEGRATED_ASSISTANT_ID is not defined');
+      console.error('NEXT_PUBLIC_VAPI_PUBLIC_KEY is not defined');
       return;
     }
 
@@ -49,6 +75,7 @@ const useVapi = () => {
   }, []);
 
   useEffect(() => {
+    fetchAssistantConfig();
     initializeVapi();
 
     // Cleanup function to end call and dispose Vapi instance
@@ -58,11 +85,20 @@ const useVapi = () => {
         vapiRef.current = null;
       }
     };
-  }, [initializeVapi]);
+  }, [fetchAssistantConfig, initializeVapi]);
 
-  const toggleCall = async () => {
+  const toggleCall = async (assistantType: 'unintegrated' | 'marketing' = 'unintegrated') => {
+    if (!assistantConfig) {
+      console.error('Assistant configuration not loaded');
+      return;
+    }
+
+    const assistantId = assistantType === 'unintegrated' 
+      ? assistantConfig.unintegratedAssistantId 
+      : assistantConfig.marketingAssistantId;
+
     if (!assistantId) {
-      console.error('VAPI_UNINTEGRATED_ASSISTANT_ID is not defined');
+      console.error(`${assistantType} assistant ID is not defined`);
       return;
     }
 
@@ -77,7 +113,15 @@ const useVapi = () => {
     }
   };
 
-  return { volumeLevel, isSessionActive, conversation, toggleCall };
+  return { 
+    volumeLevel, 
+    isSessionActive, 
+    conversation, 
+    toggleCall, 
+    assistantConfig,
+    configLoading,
+    configError
+  };
 };
 
 export default useVapi; 
