@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     if (assistantType === 'marketing') {
       assistantId = process.env.VAPI_MARKETING_ASSISTANT_ID;
     } else {
-      assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID || process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
+      assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID || process.env.VAPI_UNINTEGRATED_ASSISTANT_ID;
     }
     
     if (!vapiApiKey) {
@@ -98,7 +98,7 @@ export async function PATCH(request: NextRequest) {
     if (assistantType === 'marketing') {
       assistantId = process.env.VAPI_MARKETING_ASSISTANT_ID;
     } else {
-      assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID || process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
+      assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID || process.env.VAPI_UNINTEGRATED_ASSISTANT_ID;
     }
 
     if (!assistantId) {

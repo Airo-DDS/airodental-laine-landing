@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import Vapi from '@vapi-ai/web';
 
 const publicKey = process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY;
-const assistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
+const assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID;
 
 const useVapi = () => {
   const [volumeLevel, setVolumeLevel] = useState(0);
@@ -12,7 +12,7 @@ const useVapi = () => {
 
   const initializeVapi = useCallback(() => {
     if (!publicKey) {
-      console.error('NEXT_PUBLIC_VAPI_PUBLIC_KEY is not defined');
+      console.error('VAPI_UNINTEGRATED_ASSISTANT_ID is not defined');
       return;
     }
 
@@ -62,7 +62,7 @@ const useVapi = () => {
 
   const toggleCall = async () => {
     if (!assistantId) {
-      console.error('NEXT_PUBLIC_VAPI_ASSISTANT_ID is not defined');
+      console.error('VAPI_UNINTEGRATED_ASSISTANT_ID is not defined');
       return;
     }
 
