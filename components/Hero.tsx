@@ -166,7 +166,7 @@ export default function Hero() {
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden pt-24">
+    <div id="hero" className="relative min-h-screen w-full overflow-hidden pt-24">
       {/* Subtle gradient background instead of image */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div 
@@ -209,7 +209,7 @@ export default function Hero() {
             
             <h1 className="text-2xl sm:text-2xl font-bold mb-6 text-black leading-tight">
               Your complete <br />
-              AI Dental Assistant
+              AI Dental Admin Assistant
             </h1>
             
             <p className="text-lg mb-8 text-gray-800">
@@ -243,6 +243,7 @@ export default function Hero() {
                 className="inline-flex items-center px-8 py-3 bg-[#C33764] text-white rounded-full font-medium transition-all duration-300 hover:bg-opacity-90 cursor-pointer"
                 whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.98 }}
+                data-laine-button="true"
               >
                 <Mic size={20} className="mr-2" />
                 Talk to LAINE

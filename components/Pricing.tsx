@@ -5,12 +5,29 @@ import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { fadeInUp, pricingCardVariants, buttonHover } from "@/lib/animations";
 
+// Function to handle Talk to Laine button click
+const handleTalkToLaine = () => {
+  // Smooth scroll to hero section
+  const heroSection = document.getElementById('hero');
+  if (heroSection) {
+    heroSection.scrollIntoView({ behavior: 'smooth' });
+    
+    // After 1 second, automatically click the "Talk to LAINE" button in hero
+    setTimeout(() => {
+      const heroLaineButton = heroSection.querySelector('button[data-laine-button="true"]');
+      if (heroLaineButton) {
+        (heroLaineButton as HTMLButtonElement).click();
+      }
+    }, 1000);
+  }
+};
+
 // Pricing plans data
 const pricingPlans = [
   {
     title: "Laine Lite",
     description: "For practices seeking a streamlined AI receptionist for new patient calls",
-    price: "From $295/month",
+    price: "$295/month",
     features: [
       "700 AI-handled minutes per month (typically handles 150+ calls)",
       "Scalable to meet demand with top-up minute packs",
@@ -23,7 +40,7 @@ const pricingPlans = [
   {
     title: "Laine Integrated",
     description: "For practices needing deeper automation and real-time integrations",
-    price: "From $495/month",
+    price: "$495/month",
     features: [
       "Includes all features in Laine Lite",
       "1,300 total AI-handled minutes per month",
@@ -182,17 +199,15 @@ export default function Pricing() {
             >
               Join Waitlist
             </motion.a>
-            <motion.a 
+            <motion.button 
               variants={buttonHover}
               whileHover="hover"
               whileTap="tap"
-              href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={handleTalkToLaine}
               className="px-8 py-3 bg-white border border-[#E4E4E7] text-black rounded-[5px] font-medium font-[family-name:var(--font-geist-sans)] transition-all duration-300 hover:border-[#F57C3A] hover:text-[#F57C3A] text-center"
             >
-              Schedule Demo
-            </motion.a>
+              Talk to Laine
+            </motion.button>
           </motion.div>
         </motion.div>
 

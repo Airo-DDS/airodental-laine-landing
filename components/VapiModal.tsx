@@ -49,7 +49,7 @@ export default function VapiModal({ isOpen, onClose }: VapiModalProps) {
             
             {/* Modal Header */}
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Talk to LAINE</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Talk to Laine</h2>
               <p className="text-gray-600">
                 Click the microphone to start your conversation with LAINE
               </p>

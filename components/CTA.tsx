@@ -4,6 +4,23 @@ import React from "react";
 import { motion } from "framer-motion";
 import { fadeInUp, buttonHover } from "@/lib/animations";
 
+// Function to handle Talk to Laine button click
+const handleTalkToLaine = () => {
+  // Smooth scroll to hero section
+  const heroSection = document.getElementById('hero');
+  if (heroSection) {
+    heroSection.scrollIntoView({ behavior: 'smooth' });
+    
+    // After 1 second, automatically click the "Talk to LAINE" button in hero
+    setTimeout(() => {
+      const heroLaineButton = heroSection.querySelector('button[data-laine-button="true"]');
+      if (heroLaineButton) {
+        (heroLaineButton as HTMLButtonElement).click();
+      }
+    }, 1000);
+  }
+};
+
 export default function CTA() {
   return (
     <section className="w-full py-[80px] bg-white">
@@ -45,14 +62,12 @@ export default function CTA() {
               whileTap="tap"
               variants={buttonHover}
             >
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSd9EmiEryZ6vqRJGm10hXMmjpdqV2JbTICFtk712f5cCYstzw/viewform"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={handleTalkToLaine}
                 className="inline-block px-8 py-3 bg-[#C33764] text-white rounded-[5px] font-medium font-[family-name:var(--font-geist-sans)] transition-all duration-300"
               >
-                Schedule Demo
-              </a>
+                Talk to Laine
+              </button>
             </motion.div>
 
             <motion.div
