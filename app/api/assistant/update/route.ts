@@ -12,6 +12,13 @@ interface Assistant {
   firstMessage?: string;
 }
 
+interface UpdatePayload {
+  model?: {
+    messages?: Message[];
+  };
+  firstMessage?: string;
+}
+
 // GET endpoint to fetch current assistant data
 export async function GET(request: NextRequest) {
   try {
@@ -140,7 +147,7 @@ export async function PATCH(request: NextRequest) {
     const currentAssistant: Assistant = await getCurrentResponse.json();
 
     // Prepare the update payload
-    const updatePayload: any = {};
+    const updatePayload: UpdatePayload = {};
 
     // Update system prompt if provided
     if (systemPrompt) {
