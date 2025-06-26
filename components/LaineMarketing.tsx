@@ -8,8 +8,23 @@ import { MicIcon, PhoneOff, X } from 'lucide-react';
 const useMarketingVapi = () => {
   const [volumeLevel, setVolumeLevel] = useState(0);
   const [isSessionActive, setIsSessionActive] = useState(false);
+  const [assistantConfig, setAssistantConfig] = useState<{ marketingAssistantId?: string } | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const vapiRef = React.useRef<any>(null);
+
+  // Fetch assistant configuration from API
+  const fetchAssistantConfig = React.useCallback(async () => {
+    try {
+      const response = await fetch('/api/assistant/config');
+      if (!response.ok) {
+        throw new Error('Failed to fetch assistant configuration');
+      }
+      const config = await response.json();
+      setAssistantConfig(config);
+    } catch (error) {
+      console.error('Error fetching assistant config:', error);
+    }
+  }, []);
 
   const initializeVapi = React.useCallback(() => {
     const publicKey = process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY;
@@ -44,6 +59,7 @@ const useMarketingVapi = () => {
   }, []);
 
   useEffect(() => {
+    fetchAssistantConfig();
     initializeVapi();
 
     return () => {
@@ -52,12 +68,11 @@ const useMarketingVapi = () => {
         vapiRef.current = null;
       }
     };
-  }, [initializeVapi]);
+  }, [fetchAssistantConfig, initializeVapi]);
 
   const toggleCall = async () => {
-    const marketingAssistantId = process.env.VAPI_MARKETING_ASSISTANT_ID;
-    if (!marketingAssistantId) {
-      console.error('VAPI_MARKETING_ASSISTANT_ID is not defined');
+    if (!assistantConfig?.marketingAssistantId) {
+      console.error('Marketing assistant ID not loaded');
       return;
     }
 
@@ -65,7 +80,7 @@ const useMarketingVapi = () => {
       if (isSessionActive) {
         await vapiRef.current.stop();
       } else {
-        await vapiRef.current.start(marketingAssistantId);
+        await vapiRef.current.start(assistantConfig.marketingAssistantId);
       }
     } catch (err) {
       console.error('Error toggling marketing Vapi session:', err);
