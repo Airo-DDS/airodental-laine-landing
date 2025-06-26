@@ -9,6 +9,7 @@ interface Assistant {
   model?: {
     messages?: Message[];
   };
+  firstMessage?: string;
 }
 
 // GET endpoint to fetch current assistant data
@@ -69,7 +70,8 @@ export async function GET(request: NextRequest) {
       success: true,
       assistant: assistantData,
       assistantType: assistantType || 'main',
-      currentSystemPrompt: systemMessage?.content || ''
+      currentSystemPrompt: systemMessage?.content || '',
+      currentFirstMessage: assistantData.firstMessage || ''
     });
 
   } catch (error) {
@@ -81,14 +83,14 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// PATCH endpoint to update system prompt
+// PATCH endpoint to update system prompt and/or first message
 export async function PATCH(request: NextRequest) {
   try {
-    const { systemPrompt, assistantType } = await request.json();
+    const { systemPrompt, firstMessage, assistantType } = await request.json();
 
-    if (!systemPrompt) {
+    if (!systemPrompt && !firstMessage) {
       return NextResponse.json(
-        { error: 'System prompt is required' },
+        { error: 'At least one of systemPrompt or firstMessage is required' },
         { status: 400 }
       );
     }
@@ -137,29 +139,38 @@ export async function PATCH(request: NextRequest) {
 
     const currentAssistant: Assistant = await getCurrentResponse.json();
 
-    // Preserve existing model configuration and update only the system message
-    const updatedModel = {
-      ...currentAssistant.model,
-      messages: [
-        {
-          role: 'system',
-          content: systemPrompt
-        },
-        // Keep any non-system messages
-        ...(currentAssistant.model?.messages?.filter((msg: Message) => msg.role !== 'system') || [])
-      ]
-    };
+    // Prepare the update payload
+    const updatePayload: any = {};
 
-    // Update the assistant with new system prompt while preserving other settings
+    // Update system prompt if provided
+    if (systemPrompt) {
+      const updatedModel = {
+        ...currentAssistant.model,
+        messages: [
+          {
+            role: 'system',
+            content: systemPrompt
+          },
+          // Keep any non-system messages
+          ...(currentAssistant.model?.messages?.filter((msg: Message) => msg.role !== 'system') || [])
+        ]
+      };
+      updatePayload.model = updatedModel;
+    }
+
+    // Update first message if provided
+    if (firstMessage !== undefined) {
+      updatePayload.firstMessage = firstMessage;
+    }
+
+    // Update the assistant with new settings while preserving other settings
     const updateResponse = await fetch(`https://api.vapi.ai/assistant/${assistantId}`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${vapiApiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        model: updatedModel
-      }),
+      body: JSON.stringify(updatePayload),
     });
 
     if (!updateResponse.ok) {
@@ -173,9 +184,13 @@ export async function PATCH(request: NextRequest) {
 
     const updatedAssistant = await updateResponse.json();
 
+    const updatedFields = [];
+    if (systemPrompt) updatedFields.push('system prompt');
+    if (firstMessage !== undefined) updatedFields.push('first message');
+
     return NextResponse.json({
       success: true,
-      message: 'System prompt updated successfully',
+      message: `${updatedFields.join(' and ')} updated successfully`,
       assistant: updatedAssistant
     });
 
