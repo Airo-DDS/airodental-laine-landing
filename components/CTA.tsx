@@ -30,7 +30,7 @@ export default function CTA() {
             className="text-[15px] sm:text-[16px] text-[#4A4A4A] font-normal font-[family-name:var(--font-geist-sans)] mb-10 sm:mb-12 max-w-2xl mx-auto px-2 sm:px-0"
           >
             Experience how Laine can streamline your communication, reduce administrative
-            burden, and enhance patient care—all while integrating seamlessly with your
+            burden, and enhance patient care, all while integrating seamlessly with your
             existing systems.
           </motion.p>
 
