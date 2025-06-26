@@ -31,14 +31,14 @@ const RadialCard: React.FC = () => {
           <MicOff
             size={24}
             className="text-black dark:text-white"
-            onClick={toggleCall}
+            onClick={() => toggleCall()}
             style={{ cursor: 'pointer', zIndex: 10 }}
           />
           :
           <Mic
             size={28}
             className="text-black dark:text-white"
-            onClick={toggleCall}
+            onClick={() => toggleCall()}
             style={{ cursor: 'pointer', zIndex: 10 }}
           />
         }
