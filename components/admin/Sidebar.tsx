@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, Phone, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Phone, Settings, LogOut, FlaskConical } from 'lucide-react';
 
 const navItems = [
   {
@@ -20,6 +20,11 @@ const navItems = [
     href: '/admin/settings',
     label: 'Settings',
     icon: Settings,
+  },
+  {
+    href: '/admin/experiments',
+    label: 'Experiments',
+    icon: FlaskConical,
   },
 ];
 

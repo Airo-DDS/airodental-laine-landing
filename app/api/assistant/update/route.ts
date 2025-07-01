@@ -29,6 +29,8 @@ interface UpdatePayload {
     provider?: string;
     voiceId?: string;
   };
+  analysisPlan?: object;
+  hooks?: object;
 }
 
 // GET endpoint to fetch current assistant data
@@ -42,6 +44,8 @@ export async function GET(request: NextRequest) {
     
     if (assistantType === 'marketing') {
       assistantId = process.env.VAPI_MARKETING_ASSISTANT_ID;
+    } else if (assistantType === 'experiment') {
+      assistantId = process.env.VAPI_EMAIL_EXPERIMENT_ASSISTANT_ID;
     } else {
       assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID;
     }
@@ -54,8 +58,9 @@ export async function GET(request: NextRequest) {
     }
 
     if (!assistantId) {
+      const assistantName = assistantType === 'marketing' ? 'Marketing assistant' : assistantType === 'experiment' ? 'Experiment assistant' : 'Main assistant';
       return NextResponse.json(
-        { error: `${assistantType === 'marketing' ? 'Marketing assistant' : 'Main assistant'} ID not configured` },
+        { error: `${assistantName} ID not configured` },
         { status: 500 }
       );
     }
@@ -115,11 +120,11 @@ export async function GET(request: NextRequest) {
 // PATCH endpoint to update system prompt and/or voice
 export async function PATCH(request: NextRequest) {
   try {
-    const { systemPrompt, assistantType, voice } = await request.json();
+    const { systemPrompt, assistantType, voice, analysisPlan, hooks } = await request.json();
 
-    if (!systemPrompt && !voice) {
+    if (!systemPrompt && !voice && !analysisPlan && !hooks) {
       return NextResponse.json(
-        { error: 'At least one of systemPrompt or voice is required' },
+        { error: 'At least one of systemPrompt, voice, analysisPlan, or hooks is required' },
         { status: 400 }
       );
     }
@@ -128,13 +133,16 @@ export async function PATCH(request: NextRequest) {
     let assistantId: string | undefined;
     if (assistantType === 'marketing') {
       assistantId = process.env.VAPI_MARKETING_ASSISTANT_ID;
+    } else if (assistantType === 'experiment') {
+      assistantId = process.env.VAPI_EMAIL_EXPERIMENT_ASSISTANT_ID;
     } else {
       assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID;
     }
 
     if (!assistantId) {
+      const assistantName = assistantType === 'marketing' ? 'Marketing assistant' : assistantType === 'experiment' ? 'Experiment assistant' : 'Main assistant';
       return NextResponse.json(
-        { error: `${assistantType === 'marketing' ? 'Marketing assistant' : 'Main assistant'} ID not configured` },
+        { error: `${assistantName} ID not configured` },
         { status: 500 }
       );
     }
@@ -198,6 +206,16 @@ export async function PATCH(request: NextRequest) {
           cachingEnabled: currentAssistant.voice.cachingEnabled
         })
       };
+    }
+
+    // Update analysis plan if provided
+    if (analysisPlan) {
+      updatePayload.analysisPlan = analysisPlan;
+    }
+
+    // Update hooks if provided
+    if (hooks) {
+      updatePayload.hooks = hooks;
     }
 
     // Update the assistant with new settings while preserving other settings
