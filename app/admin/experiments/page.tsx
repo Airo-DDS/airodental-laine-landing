@@ -19,9 +19,6 @@ interface CallData {
 
 // This is the full configuration we will send to VAPI
 const getExperimentConfig = () => {
-  // Use the deployed URL from environment variables
-  const webhookUrl = `${process.env.NEXT_PUBLIC_URL}/api/experiments/webhook`;
-
   const systemPrompt = `[IDENTITY]
 You are LAINE, an AI-powered dental receptionist for AiroDental. You&apos;re helpful, professional, and knowledgeable about dental services. Your main role is to assist patients with scheduling appointments, answering questions about dental procedures, and providing general information about the practice.
 
@@ -85,12 +82,8 @@ Remember to always be helpful, professional, and focused on providing excellent 
         },
       },
     },
-    hooks: [
-      {
-        on: 'call.ending',
-        do: [{ type: 'webhook', url: webhookUrl }],
-      },
-    ],
+    // Note: Webhooks need to be configured separately through the VAPI dashboard or assistant configuration
+    // The hooks array doesn't support webhook type in the do.type field
   };
 };
 
@@ -197,7 +190,7 @@ export default function ExperimentsPage() {
           assistantType: 'experiment',
           systemPrompt: config.model.messages[0].content,
           analysisPlan: config.analysisPlan,
-          hooks: config.hooks,
+          // Note: Hooks removed as webhook type is not supported in hooks.do.type
         }),
       });
 
@@ -241,11 +234,14 @@ export default function ExperimentsPage() {
         <CardHeader>
           <CardTitle>Email Summary Experiment</CardTitle>
           <CardDescription>
-            This will update the dedicated experiment assistant with the necessary prompt,
-            analysis plan, and webhook to automatically email call summaries.
+            This will update the dedicated experiment assistant with the necessary prompt
+            and analysis plan for email extraction and summary generation.
             <strong className="block mt-2 text-red-600">
               Warning: This is a destructive action and will overwrite the assistant&apos;s current configuration.
             </strong>
+            <div className="mt-2 text-sm text-blue-600">
+              Note: Webhooks need to be configured separately through the VAPI dashboard.
+            </div>
           </CardDescription>
         </CardHeader>
         <CardContent>
