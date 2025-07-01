@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { toast } from 'sonner';
 
 interface SystemPromptFormProps {
@@ -25,10 +25,37 @@ export default function SystemPromptForm({
   accentColor,
 }: SystemPromptFormProps) {
 
+  const loadCurrentPrompt = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const url = assistantType === 'marketing' ? '/api/assistant/update?assistant=marketing' : '/api/assistant/update';
+      const response = await fetch(url, { method: 'GET' });
+      const data = await response.json();
+
+      if (response.ok) {
+        const promptContent = data.currentSystemPrompt || '';
+        setSystemPrompt(promptContent);
+        if (promptContent) {
+          toast.success(`${title} configuration loaded successfully`);
+        } else {
+          toast.info(`No ${title.toLowerCase()} system prompt found - you can create one`);
+        }
+      } else {
+        console.error(`Error loading ${assistantType} prompt:`, data);
+        toast.error(data.error || `Failed to load ${title.toLowerCase()} configuration`);
+      }
+    } catch (error) {
+      console.error(`Error loading ${assistantType} prompt:`, error);
+      toast.error(`Network error while loading ${title.toLowerCase()} configuration`);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [assistantType, title, setSystemPrompt, setIsLoading]);
+
   // Auto-load current prompt when component mounts
   useEffect(() => {
     loadCurrentPrompt();
-  }, [assistantType]); // Reload when assistant type changes
+  }, [assistantType, loadCurrentPrompt]);
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,33 +79,6 @@ export default function SystemPromptForm({
     } catch (error) {
       console.error(`Error updating ${assistantType} prompt:`, error);
       toast.error('A network error occurred while updating the system prompt.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const loadCurrentPrompt = async () => {
-    setIsLoading(true);
-    try {
-      const url = assistantType === 'marketing' ? '/api/assistant/update?assistant=marketing' : '/api/assistant/update';
-      const response = await fetch(url, { method: 'GET' });
-      const data = await response.json();
-
-      if (response.ok) {
-        const promptContent = data.currentSystemPrompt || '';
-        setSystemPrompt(promptContent);
-        if (promptContent) {
-          toast.success(`${title} configuration loaded successfully`);
-        } else {
-          toast.info(`No ${title.toLowerCase()} system prompt found - you can create one`);
-        }
-      } else {
-        console.error(`Error loading ${assistantType} prompt:`, data);
-        toast.error(data.error || `Failed to load ${title.toLowerCase()} configuration`);
-      }
-    } catch (error) {
-      console.error(`Error loading ${assistantType} prompt:`, error);
-      toast.error(`Network error while loading ${title.toLowerCase()} configuration`);
     } finally {
       setIsLoading(false);
     }

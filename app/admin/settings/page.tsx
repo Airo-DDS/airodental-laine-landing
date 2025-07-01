@@ -22,9 +22,9 @@ export default function SystemPromptUpdatePage() {
   const [isVoiceLoading, setIsVoiceLoading] = useState(false)
   const [isPageLoading, setIsPageLoading] = useState(true)
 
-  // Voice options
+  // Voice options - Note: ElevenLabs uses "11labs" as provider value in Vapi API
   const voiceOptions = {
-    elevenlabs: [
+    "11labs": [
       { name: 'Thayer', id: 'Zw3H3VuToVuSpGZZCXA0' },
       { name: 'Callen', id: 'KpjFQOwd4HKC7aZE2njc' },
       { name: 'Marin', id: 'Bba1XLLs3Isa9TJ3MH3L' },
@@ -143,7 +143,8 @@ export default function SystemPromptUpdatePage() {
     const provider = voiceOptions[currentVoice.provider as keyof typeof voiceOptions]
     if (provider) {
       const voice = provider.find(v => v.id === currentVoice.voiceId)
-      return voice ? `${voice.name} (${currentVoice.provider})` : currentVoice.voiceId
+      const displayProvider = currentVoice.provider === '11labs' ? 'ElevenLabs' : currentVoice.provider
+      return voice ? `${voice.name} (${displayProvider})` : currentVoice.voiceId
     }
     return currentVoice.voiceId
   }
@@ -247,7 +248,7 @@ export default function SystemPromptUpdatePage() {
                     <SelectValue placeholder="Select provider" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="elevenlabs">ElevenLabs</SelectItem>
+                    <SelectItem value="11labs">ElevenLabs</SelectItem>
                     <SelectItem value="vapi">VAPI</SelectItem>
                   </SelectContent>
                 </Select>
