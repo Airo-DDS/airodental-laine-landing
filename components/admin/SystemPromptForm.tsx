@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { toast } from 'sonner';
 
 interface SystemPromptFormProps {
@@ -23,6 +24,12 @@ export default function SystemPromptForm({
   setIsLoading,
   accentColor,
 }: SystemPromptFormProps) {
+
+  // Auto-load current prompt when component mounts
+  useEffect(() => {
+    loadCurrentPrompt();
+  }, [assistantType]); // Reload when assistant type changes
+
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!systemPrompt.trim()) {
@@ -42,8 +49,9 @@ export default function SystemPromptForm({
       } else {
         toast.error(data.error || `Failed to update ${title} system prompt`);
       }
-    } catch {
-      toast.error('A network error occurred.');
+    } catch (error) {
+      console.error(`Error updating ${assistantType} prompt:`, error);
+      toast.error('A network error occurred while updating the system prompt.');
     } finally {
       setIsLoading(false);
     }
@@ -57,18 +65,20 @@ export default function SystemPromptForm({
       const data = await response.json();
 
       if (response.ok) {
-        setSystemPrompt(data.currentSystemPrompt || '');
-        if (data.currentSystemPrompt) {
-          toast.success(`${title} system prompt loaded successfully`);
+        const promptContent = data.currentSystemPrompt || '';
+        setSystemPrompt(promptContent);
+        if (promptContent) {
+          toast.success(`${title} configuration loaded successfully`);
         } else {
           toast.info(`No ${title.toLowerCase()} system prompt found - you can create one`);
         }
       } else {
-        toast.error(data.error || `Failed to load ${title.toLowerCase()} system prompt`);
+        console.error(`Error loading ${assistantType} prompt:`, data);
+        toast.error(data.error || `Failed to load ${title.toLowerCase()} configuration`);
       }
     } catch (error) {
       console.error(`Error loading ${assistantType} prompt:`, error);
-      toast.error(`Failed to load ${title.toLowerCase()} system prompt`);
+      toast.error(`Network error while loading ${title.toLowerCase()} configuration`);
     } finally {
       setIsLoading(false);
     }
@@ -84,7 +94,7 @@ export default function SystemPromptForm({
           <button
             onClick={loadCurrentPrompt}
             disabled={isLoading}
-            className="text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-md transition-colors duration-200 disabled:opacity-50"
+            className="text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-md transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? 'Loading...' : 'Reload Current Prompt'}
           </button>
@@ -96,15 +106,24 @@ export default function SystemPromptForm({
           <label htmlFor={`${assistantType}-prompt`} className="block text-lg font-medium text-gray-700 mb-3">
             System Prompt
           </label>
-          <textarea
-            id={`${assistantType}-prompt`}
-            value={systemPrompt}
-            onChange={(e) => setSystemPrompt(e.target.value)}
-            rows={12}
-            className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent resize-none text-sm font-mono focus:ring-[${accentColor}]`}
-            placeholder={`Enter the system prompt for the ${title.toLowerCase()}...`}
-            required
-          />
+          {isLoading ? (
+            <div className="w-full h-64 border border-gray-300 rounded-lg flex items-center justify-center bg-gray-50">
+              <div className="flex items-center space-x-2 text-gray-500">
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-400"></div>
+                <span>Loading current system prompt...</span>
+              </div>
+            </div>
+          ) : (
+            <textarea
+              id={`${assistantType}-prompt`}
+              value={systemPrompt}
+              onChange={(e) => setSystemPrompt(e.target.value)}
+              rows={12}
+              className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent resize-none text-sm font-mono focus:ring-[${accentColor}]`}
+              placeholder={`Enter the system prompt for the ${title.toLowerCase()}...`}
+              required
+            />
+          )}
           <p className="mt-2 text-sm text-gray-500">
             {assistantType === 'main' 
               ? 'This prompt defines how the main LAINE assistant behaves and responds to users.'

@@ -5,10 +5,20 @@ interface Message {
   content: string;
 }
 
+interface VoiceConfig {
+  provider?: string;
+  voiceId?: string;
+  speed?: number;
+  cachingEnabled?: boolean;
+}
+
 interface Assistant {
   model?: {
     messages?: Message[];
   };
+  voice?: VoiceConfig;
+  name?: string;
+  firstMessage?: string;
 }
 
 interface UpdatePayload {
@@ -33,7 +43,7 @@ export async function GET(request: NextRequest) {
     if (assistantType === 'marketing') {
       assistantId = process.env.VAPI_MARKETING_ASSISTANT_ID;
     } else {
-      assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID || process.env.VAPI_UNINTEGRATED_ASSISTANT_ID;
+      assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID;
     }
     
     if (!vapiApiKey) {
@@ -50,7 +60,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Fetch current assistant data
+    // Fetch current assistant data from Vapi API
     const response = await fetch(`https://api.vapi.ai/assistant/${assistantId}`, {
       method: 'GET',
       headers: {
@@ -63,7 +73,7 @@ export async function GET(request: NextRequest) {
       const errorData = await response.text();
       console.error('Vapi API error:', errorData);
       return NextResponse.json(
-        { error: 'Failed to fetch assistant data' },
+        { error: 'Failed to fetch assistant data from Vapi API' },
         { status: response.status }
       );
     }
@@ -75,11 +85,22 @@ export async function GET(request: NextRequest) {
       (msg: Message) => msg.role === 'system'
     );
 
+    // Extract current voice configuration
+    const currentVoice = assistantData.voice ? {
+      provider: assistantData.voice.provider || '',
+      voiceId: assistantData.voice.voiceId || '',
+      speed: assistantData.voice.speed,
+      cachingEnabled: assistantData.voice.cachingEnabled
+    } : { provider: '', voiceId: '' };
+
     return NextResponse.json({
       success: true,
       assistant: assistantData,
       assistantType: assistantType || 'main',
-      currentSystemPrompt: systemMessage?.content || ''
+      currentSystemPrompt: systemMessage?.content || '',
+      currentVoice: currentVoice,
+      assistantName: assistantData.name || '',
+      firstMessage: assistantData.firstMessage || ''
     });
 
   } catch (error) {
@@ -108,7 +129,7 @@ export async function PATCH(request: NextRequest) {
     if (assistantType === 'marketing') {
       assistantId = process.env.VAPI_MARKETING_ASSISTANT_ID;
     } else {
-      assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID || process.env.VAPI_UNINTEGRATED_ASSISTANT_ID;
+      assistantId = process.env.VAPI_UNINTEGRATED_ASSISTANT_ID;
     }
 
     if (!assistantId) {
@@ -127,7 +148,7 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
-    // First, fetch the current assistant data
+    // First, fetch the current assistant data to preserve existing settings
     const getCurrentResponse = await fetch(`https://api.vapi.ai/assistant/${assistantId}`, {
       method: 'GET',
       headers: {
@@ -140,14 +161,14 @@ export async function PATCH(request: NextRequest) {
       const errorData = await getCurrentResponse.text();
       console.error('Vapi API error (fetch):', errorData);
       return NextResponse.json(
-        { error: 'Failed to fetch current assistant data' },
+        { error: 'Failed to fetch current assistant data from Vapi API' },
         { status: getCurrentResponse.status }
       );
     }
 
     const currentAssistant: Assistant = await getCurrentResponse.json();
 
-    // Prepare the update payload
+    // Prepare the update payload with proper structure following Vapi API docs
     const updatePayload: UpdatePayload = {};
 
     // Update system prompt if provided
@@ -166,9 +187,17 @@ export async function PATCH(request: NextRequest) {
       updatePayload.model = updatedModel;
     }
 
-    // Update voice if provided
+    // Update voice configuration if provided
     if (voice) {
-      updatePayload.voice = voice;
+      updatePayload.voice = {
+        provider: voice.provider,
+        voiceId: voice.voiceId,
+        // Preserve existing voice settings like speed and caching
+        ...(currentAssistant.voice && {
+          speed: currentAssistant.voice.speed,
+          cachingEnabled: currentAssistant.voice.cachingEnabled
+        })
+      };
     }
 
     // Update the assistant with new settings while preserving other settings
@@ -185,7 +214,7 @@ export async function PATCH(request: NextRequest) {
       const errorData = await updateResponse.text();
       console.error('Vapi API error (update):', errorData);
       return NextResponse.json(
-        { error: 'Failed to update assistant' },
+        { error: 'Failed to update assistant in Vapi API' },
         { status: updateResponse.status }
       );
     }
@@ -199,7 +228,8 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: `${updatedFields.join(' and ')} updated successfully`,
-      assistant: updatedAssistant
+      assistant: updatedAssistant,
+      assistantType: assistantType || 'main'
     });
 
   } catch (error) {
