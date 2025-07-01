@@ -264,7 +264,7 @@ export default function ExperimentsPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          to: 'haloweave@gmail.com',
+          to: 'deren@airodental.com',
           subject: 'Test Email from AiroDental Laine Experiments',
           message: `This is a test email sent at ${new Date().toLocaleString()} to verify that Resend is working correctly with your AiroDental Laine platform.`
         }),
@@ -371,7 +371,7 @@ export default function ExperimentsPage() {
                 {isSendingTestEmail ? 'Sending...' : '📧 Send Test Email'}
               </Button>
               <span className="text-sm text-gray-600">
-                Will send to: <code className="bg-gray-100 px-2 py-1 rounded">haloweave@gmail.com</code>
+                Will send to: <code className="bg-gray-100 px-2 py-1 rounded">deren@airodental.com</code>
               </span>
             </div>
             

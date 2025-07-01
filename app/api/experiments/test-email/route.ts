@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     const { to, subject, message } = body;
 
     // Set defaults
-    const emailTo = to || 'haloweave@gmail.com';
+    const emailTo = to || 'deren@airodental.com';
     const emailSubject = subject || 'Test Email from AiroDental Laine Experiments';
     const emailMessage = message || 'This is a test email to verify that Resend is working correctly with your AiroDental Laine platform.';
 
@@ -98,7 +98,7 @@ export async function GET() {
     message: 'Test Email API Endpoint',
     usage: 'POST to this endpoint with optional { "to", "subject", "message" } parameters',
     defaults: {
-      to: 'haloweave@gmail.com',
+      to: 'deren@airodental.com',
       subject: 'Test Email from AiroDental Laine Experiments',
       message: 'This is a test email to verify that Resend is working correctly.'
     },
