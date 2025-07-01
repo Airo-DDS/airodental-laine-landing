@@ -205,21 +205,27 @@ export default function ExperimentsPage() {
     }
   };
 
-  const startWebCall = () => {
+  const startWebCall = async () => {
     if (!vapiRef.current) {
       toast.error('VAPI not initialized');
       return;
     }
 
-    // Use the experiment assistant ID from environment variable
-    const assistantId = process.env.VAPI_EMAIL_EXPERIMENT_ASSISTANT_ID;
-    
-    if (!assistantId) {
-      toast.error('VAPI_EMAIL_EXPERIMENT_ASSISTANT_ID environment variable is not set.');
-      return;
-    }
+    try {
+      // Fetch the assistant ID from the server-side API
+      const response = await fetch('/api/experiments/assistant-id');
+      const data = await response.json();
+      
+      if (!response.ok) {
+        toast.error(data.error || 'Failed to get assistant ID');
+        return;
+      }
 
-    vapiRef.current.start(assistantId);
+      vapiRef.current.start(data.assistantId);
+    } catch (error) {
+      toast.error('Failed to start call');
+      console.error('Error starting call:', error);
+    }
   };
 
   const endWebCall = () => {
