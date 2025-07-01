@@ -13,9 +13,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'API keys not configured' }, { status: 500 });
   }
 
-  // We only care about the 'call-end' message
-  if (body.message.type !== 'call-end') {
-    return NextResponse.json({ status: 'ignored, not a call-end event' });
+  // We only care about the 'call.ending' message
+  if (body.message.type !== 'call.ending') {
+    return NextResponse.json({ status: 'ignored, not a call.ending event' });
   }
 
   const callId = body.message.call.id;

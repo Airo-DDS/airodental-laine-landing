@@ -86,7 +86,7 @@ Remember to always be helpful, professional, and focused on providing excellent 
     },
     hooks: [
       {
-        on: 'call-end', // Note: VAPI docs sometimes use 'call.ending', but 'call-end' is also common. Verify if issues arise.
+        on: 'call.ending',
         do: [{ type: 'webhook', url: webhookUrl }],
       },
     ],
