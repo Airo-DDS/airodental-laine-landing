@@ -17,6 +17,22 @@ interface CallData {
   };
 }
 
+interface TestEmailResult {
+  success: boolean;
+  message: string;
+  details?: {
+    to?: string;
+    subject?: string;
+    emailId?: string;
+    timestamp?: string;
+  };
+  error?: string;
+  resendResponse?: {
+    data?: { id?: string };
+    error?: string;
+  };
+}
+
 // This is the full configuration we will send to VAPI
 const getExperimentConfig = () => {
   const systemPrompt = `[IDENTITY]
@@ -97,6 +113,10 @@ export default function ExperimentsPage() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [transcript, setTranscript] = useState<Array<{role: string, text: string}>>([]);
   const vapiRef = useRef<Vapi | null>(null);
+  
+  // Test email state
+  const [isSendingTestEmail, setIsSendingTestEmail] = useState(false);
+  const [testEmailResult, setTestEmailResult] = useState<TestEmailResult | null>(null);
 
   const fetchLatestCall = async () => {
     setIsFetching(true);
@@ -234,6 +254,43 @@ export default function ExperimentsPage() {
     }
   };
 
+  const sendTestEmail = async () => {
+    setIsSendingTestEmail(true);
+    setTestEmailResult(null);
+    toast.info('Sending test email...');
+
+    try {
+      const response = await fetch('/api/experiments/test-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: 'haloweave@gmail.com',
+          subject: 'Test Email from AiroDental Laine Experiments',
+          message: `This is a test email sent at ${new Date().toLocaleString()} to verify that Resend is working correctly with your AiroDental Laine platform.`
+        }),
+      });
+
+      const data = await response.json();
+      setTestEmailResult(data);
+
+      if (data.success) {
+        toast.success('Test email sent successfully! Check your inbox.');
+      } else {
+        toast.error(`Failed to send test email: ${data.message}`);
+      }
+    } catch (error) {
+      toast.error('Failed to send test email');
+      console.error('Test email error:', error);
+      setTestEmailResult({
+        success: false,
+        error: 'Network error',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    } finally {
+      setIsSendingTestEmail(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <Card>
@@ -293,6 +350,72 @@ export default function ExperimentsPage() {
           ) : (
             <p>No calls found for the experiment assistant yet.</p>
           )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Test Email Functionality</CardTitle>
+          <CardDescription>
+            Send a test email to verify that Resend is working correctly.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <Button 
+                onClick={sendTestEmail} 
+                disabled={isSendingTestEmail}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                {isSendingTestEmail ? 'Sending...' : '📧 Send Test Email'}
+              </Button>
+              <span className="text-sm text-gray-600">
+                Will send to: <code className="bg-gray-100 px-2 py-1 rounded">haloweave@gmail.com</code>
+              </span>
+            </div>
+            
+            {testEmailResult && (
+              <div className={`p-4 rounded-lg border ${
+                testEmailResult.success 
+                  ? 'bg-green-50 border-green-200 text-green-800' 
+                  : 'bg-red-50 border-red-200 text-red-800'
+              }`}>
+                <div className="flex items-start gap-2">
+                  <div className="text-lg">
+                    {testEmailResult.success ? '✅' : '❌'}
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-medium">
+                      {testEmailResult.success ? 'Email Sent Successfully!' : 'Email Failed'}
+                    </div>
+                    <div className="text-sm mt-1">
+                      {testEmailResult.message}
+                    </div>
+                    {testEmailResult.details && (
+                      <div className="text-xs mt-2 opacity-75">
+                        <div>Email ID: {testEmailResult.details.emailId}</div>
+                        <div>Timestamp: {testEmailResult.details.timestamp}</div>
+                      </div>
+                    )}
+                    {testEmailResult.success === false && testEmailResult.details && (
+                      <details className="text-xs mt-2 opacity-75">
+                        <summary className="cursor-pointer hover:opacity-100">Error Details</summary>
+                        <pre className="mt-2 bg-red-100 p-2 rounded overflow-auto text-red-900">
+                          {JSON.stringify(testEmailResult.details, null, 2)}
+                        </pre>
+                      </details>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            <div className="text-xs text-gray-500 bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+              💡 <strong>Note:</strong> This test uses the same Resend configuration as the webhook.
+              If this test email works, your webhook emails should work too.
+            </div>
+          </div>
         </CardContent>
       </Card>
 
