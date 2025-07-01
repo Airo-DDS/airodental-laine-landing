@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import Vapi from '@vapi-ai/web';
 
 interface CallData {
   id: string;
@@ -97,6 +98,12 @@ export default function ExperimentsPage() {
   const [isConfiguring, setIsConfiguring] = useState(false);
   const [latestCall, setLatestCall] = useState<CallData | null>(null);
   const [isFetching, setIsFetching] = useState(true);
+  
+  // Web call interface state
+  const [isCallConnected, setIsCallConnected] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [transcript, setTranscript] = useState<Array<{role: string, text: string}>>([]);
+  const vapiRef = useRef<Vapi | null>(null);
 
   const fetchLatestCall = async () => {
     setIsFetching(true);
@@ -113,6 +120,62 @@ export default function ExperimentsPage() {
 
   useEffect(() => {
     fetchLatestCall();
+  }, []);
+
+  // Initialize VAPI for web calls
+  useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY) {
+      console.warn('NEXT_PUBLIC_VAPI_PUBLIC_KEY not found');
+      return;
+    }
+
+    const vapi = new Vapi(process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY);
+    vapiRef.current = vapi;
+
+    // Event listeners
+    vapi.on('call-start', () => {
+      console.log('Web call started');
+      setIsCallConnected(true);
+      setTranscript([]);
+      toast.success('Call connected!');
+    });
+
+    vapi.on('call-end', () => {
+      console.log('Web call ended');
+      setIsCallConnected(false);
+      setIsSpeaking(false);
+      toast.info('Call ended');
+    });
+
+    vapi.on('speech-start', () => {
+      console.log('Assistant started speaking');
+      setIsSpeaking(true);
+    });
+
+    vapi.on('speech-end', () => {
+      console.log('Assistant stopped speaking');
+      setIsSpeaking(false);
+    });
+
+    vapi.on('message', (message) => {
+      if (message.type === 'transcript') {
+        setTranscript(prev => [...prev, {
+          role: message.role,
+          text: message.transcript
+        }]);
+      }
+    });
+
+    vapi.on('error', (error) => {
+      console.error('VAPI error:', error);
+      toast.error('Call error occurred');
+      setIsCallConnected(false);
+      setIsSpeaking(false);
+    });
+
+    return () => {
+      vapi?.stop();
+    };
   }, []);
 
   const handleConfigureAssistant = async () => {
@@ -146,6 +209,29 @@ export default function ExperimentsPage() {
       console.error(error);
     } finally {
       setIsConfiguring(false);
+    }
+  };
+
+  const startWebCall = () => {
+    if (!vapiRef.current) {
+      toast.error('VAPI not initialized');
+      return;
+    }
+
+    // Use the experiment assistant ID from environment variable
+    const assistantId = process.env.VAPI_EMAIL_EXPERIMENT_ASSISTANT_ID;
+    
+    if (!assistantId) {
+      toast.error('VAPI_EMAIL_EXPERIMENT_ASSISTANT_ID environment variable is not set.');
+      return;
+    }
+
+    vapiRef.current.start(assistantId);
+  };
+
+  const endWebCall = () => {
+    if (vapiRef.current) {
+      vapiRef.current.stop();
     }
   };
 
@@ -204,6 +290,79 @@ export default function ExperimentsPage() {
             </div>
           ) : (
             <p>No calls found for the experiment assistant yet.</p>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Test Web Call Interface</CardTitle>
+          <CardDescription>
+            Test the experiment assistant directly from your browser using VAPI&apos;s Web SDK.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {!isCallConnected ? (
+            <div className="text-center">
+              <Button
+                onClick={startWebCall}
+                className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg"
+                disabled={!vapiRef.current}
+              >
+                🎤 Start Voice Call
+              </Button>
+              <p className="text-sm text-gray-500 mt-2">
+                Click to start a voice conversation with the experiment assistant
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <div className={`w-3 h-3 rounded-full ${isSpeaking ? 'bg-red-500 animate-pulse' : 'bg-green-500'}`}></div>
+                  <span className="font-medium text-green-800">
+                    {isSpeaking ? 'Assistant Speaking...' : 'Listening...'}
+                  </span>
+                </div>
+                <Button
+                  onClick={endWebCall}
+                  variant="destructive"
+                  size="sm"
+                >
+                  End Call
+                </Button>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-4 max-h-64 overflow-y-auto">
+                <h4 className="font-semibold mb-3 text-gray-800">Live Transcript</h4>
+                {transcript.length === 0 ? (
+                  <p className="text-gray-500 italic">Conversation will appear here...</p>
+                ) : (
+                  <div className="space-y-2">
+                    {transcript.map((msg, i) => (
+                      <div
+                        key={i}
+                        className={`p-3 rounded-lg max-w-[85%] ${
+                          msg.role === 'user'
+                            ? 'bg-blue-100 text-blue-900 ml-auto text-right'
+                            : 'bg-white text-gray-800 border border-gray-200'
+                        }`}
+                      >
+                        <div className="text-xs font-medium mb-1 opacity-75">
+                          {msg.role === 'user' ? 'You' : 'Assistant'}
+                        </div>
+                        <div className="text-sm">{msg.text}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="text-xs text-gray-500 bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                💡 <strong>Tip:</strong> Speak clearly and wait for the assistant to finish speaking before responding.
+                The conversation will be analyzed for email extraction and summary generation.
+              </div>
+            </div>
           )}
         </CardContent>
       </Card>
