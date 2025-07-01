@@ -9,14 +9,16 @@ interface Assistant {
   model?: {
     messages?: Message[];
   };
-  firstMessage?: string;
 }
 
 interface UpdatePayload {
   model?: {
     messages?: Message[];
   };
-  firstMessage?: string;
+  voice?: {
+    provider?: string;
+    voiceId?: string;
+  };
 }
 
 // GET endpoint to fetch current assistant data
@@ -77,8 +79,7 @@ export async function GET(request: NextRequest) {
       success: true,
       assistant: assistantData,
       assistantType: assistantType || 'main',
-      currentSystemPrompt: systemMessage?.content || '',
-      currentFirstMessage: assistantData.firstMessage || ''
+      currentSystemPrompt: systemMessage?.content || ''
     });
 
   } catch (error) {
@@ -90,14 +91,14 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// PATCH endpoint to update system prompt and/or first message
+// PATCH endpoint to update system prompt and/or voice
 export async function PATCH(request: NextRequest) {
   try {
-    const { systemPrompt, firstMessage, assistantType } = await request.json();
+    const { systemPrompt, assistantType, voice } = await request.json();
 
-    if (!systemPrompt && !firstMessage) {
+    if (!systemPrompt && !voice) {
       return NextResponse.json(
-        { error: 'At least one of systemPrompt or firstMessage is required' },
+        { error: 'At least one of systemPrompt or voice is required' },
         { status: 400 }
       );
     }
@@ -165,9 +166,9 @@ export async function PATCH(request: NextRequest) {
       updatePayload.model = updatedModel;
     }
 
-    // Update first message if provided
-    if (firstMessage !== undefined) {
-      updatePayload.firstMessage = firstMessage;
+    // Update voice if provided
+    if (voice) {
+      updatePayload.voice = voice;
     }
 
     // Update the assistant with new settings while preserving other settings
@@ -193,7 +194,7 @@ export async function PATCH(request: NextRequest) {
 
     const updatedFields = [];
     if (systemPrompt) updatedFields.push('system prompt');
-    if (firstMessage !== undefined) updatedFields.push('first message');
+    if (voice) updatedFields.push('voice configuration');
 
     return NextResponse.json({
       success: true,

@@ -87,7 +87,7 @@ const useVapi = () => {
     };
   }, [fetchAssistantConfig, initializeVapi]);
 
-  const toggleCall = async (assistantType: 'unintegrated' | 'marketing' = 'unintegrated') => {
+  const toggleCall = async (assistantType: 'unintegrated' | 'marketing' = 'unintegrated', overrides?: any) => {
     if (!assistantConfig) {
       console.error('Assistant configuration not loaded');
       return;
@@ -106,7 +106,7 @@ const useVapi = () => {
       if (isSessionActive) {
         await vapiRef.current.stop();
       } else {
-        await vapiRef.current.start(assistantId);
+        await vapiRef.current.start(assistantId, overrides);
       }
     } catch (err) {
       console.error('Error toggling Vapi session:', err);
