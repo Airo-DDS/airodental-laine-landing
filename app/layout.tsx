@@ -20,9 +20,9 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Airodental | AI-Powered Dental Practice Management",
-  description: "Revolutionize your dental practice with Airodental's AI solutions. Streamline patient communication, enhance staff training, and improve practice efficiency with our comprehensive AI ecosystem.",
-  keywords: "dental AI, dental practice management, AI dental assistant, dental automation, dental staff training, patient communication, dental technology, Airodental, dental practice software",
+  title: "Laine - AI Dental Assistant | Automated Patient Communication & Scheduling",
+  description: "Meet Laine, the AI dental assistant that handles patient calls, schedules appointments, and manages communications 24/7. HIPAA-compliant AI technology designed specifically for dental practices by Dr. Deren Flesher.",
+  keywords: "AI dental assistant, dental receptionist AI, automated appointment scheduling, dental patient communication, dental call handling, HIPAA compliant dental AI, dental practice automation, Laine AI assistant, dental front desk AI, patient scheduling software",
   authors: [{ name: "Airodental Team" }],
   creator: "Airodental",
   publisher: "Airodental",
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Airodental | AI-Powered Dental Practice Management",
-    description: "Revolutionize your dental practice with AI solutions for patient communication, staff training, and practice efficiency.",
+    title: "Laine - AI Dental Assistant | Automated Patient Communication & Scheduling",
+    description: "Meet Laine, the AI dental assistant that handles patient calls, schedules appointments, and manages communications 24/7. HIPAA-compliant AI technology designed specifically for dental practices by Dr. Deren Flesher.",
     images: ["/twitter-image.png"],
   },
   robots: {
@@ -70,6 +70,11 @@ export const metadata: Metadata = {
   },
   other: {
     "theme-color": "#09474C",
+  },
+  icons: {
+    icon: "/laine-favicon.png",
+    shortcut: "/laine-favicon.png",
+    apple: "/laine-favicon.png",
   },
 };
 

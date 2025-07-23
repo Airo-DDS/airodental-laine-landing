@@ -10,8 +10,8 @@ import Footer from "@/components/Footer"
 import LaineMarketing from "@/components/LaineMarketing"
 
 export const metadata: Metadata = {
-  title: "Airodental | Revolutionizing Dental Practices with AI",
-  description: "Enhance efficiency, streamline patient communication, and empower your dental team with Airodental's AI-powered solutions.",
+  title: "Laine - AI Dental Assistant | Automated Patient Communication & Scheduling",
+  description: "Meet Laine, the AI dental assistant that handles patient calls, schedules appointments, and manages communications 24/7. HIPAA-compliant AI technology designed specifically for dental practices by Dr. Deren Flesher.",
 };
 
 export default function Home() {
