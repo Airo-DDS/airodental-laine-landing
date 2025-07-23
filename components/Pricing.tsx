@@ -29,8 +29,8 @@ const pricingPlans = [
     description: "For practices seeking a streamlined AI receptionist for new patient calls",
     price: "$295/month",
     features: [
-      "700 AI-handled minutes per month (typically handles 150+ calls)",
-      "Scalable to meet demand with top-up minute packs",
+      "100 AI-handled calls per month",
+      "Scalable to meet demand with top-up call packs",
       "Basic appointment scheduling (non-integrated)",
       "Core analytics dashboard",
       "Patient intake & verification workflows",
@@ -43,7 +43,7 @@ const pricingPlans = [
     price: "$495/month",
     features: [
       "Includes all features in Laine Lite",
-      "1,300 total AI-handled minutes per month",
+      "175 total AI-handled calls per month",
       "Integrated appointment scheduling with multiple providers",
       "Real-time PMS integration (e.g., Dentrix, Eaglesoft, OpenDental, and more)",
       "Analytics and performance tracking",
@@ -220,8 +220,8 @@ export default function Pricing() {
         >
           <motion.div variants={fadeInUp} custom={0} className="text-[12px] text-[#808080] font-normal font-[family-name:var(--font-geist-sans)] leading-relaxed">
             <p className="mb-1">Additional Clarification:</p>
-            <p className="mb-1">• Overage billing: $50 per 200-minute pack, auto-provisioned before usage</p>
-            <p className="mb-1">• All minutes (base and overage) expire at the start of the next billing cycle</p>
+            <p className="mb-1">• Overage billing: $50 per 20-call pack, auto-provisioned before usage</p>
+            <p className="mb-1">• All calls (base and overage) expire at the start of the next billing cycle</p>
             <p>• Stripe integration supports real-time usage tracking and billing</p>
           </motion.div>
         </motion.div>

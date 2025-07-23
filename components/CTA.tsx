@@ -66,7 +66,7 @@ export default function CTA() {
                 onClick={handleTalkToLaine}
                 className="inline-block px-8 py-3 bg-[#C33764] text-white rounded-[5px] font-medium font-[family-name:var(--font-geist-sans)] transition-all duration-300"
               >
-                Talk to Laine
+                Experience Laine Live
               </button>
             </motion.div>
 

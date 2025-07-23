@@ -208,7 +208,7 @@ const LaineMarketing: React.FC = () => {
           whileTap={{ scale: 0.95 }}
         >
           <MicIcon size={20} className="mr-2" />
-          <span className="text-sm font-medium">Talk to Laine to learn more</span>
+          <span className="text-sm font-medium">Questions? Ask Laine</span>
         </motion.button>
       </motion.div>
 
@@ -241,7 +241,7 @@ const LaineMarketing: React.FC = () => {
               
               {/* Description */}
               <p className="text-sm text-gray-600 text-center mt-4">
-                Click the microphone to start a conversation with Laine and learn more about our AI dental assistant.
+              Ask Laine about AiroDental&apos;s AI solutions, pricing, or how our technology can help your dental practice.
               </p>
             </div>
           </motion.div>

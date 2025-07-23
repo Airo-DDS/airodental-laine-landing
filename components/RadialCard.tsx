@@ -70,6 +70,7 @@ const RadialCard: React.FC = () => {
         </svg>
         <span className="absolute top-48 w-[calc(100%-70%)] h-[calc(100%-70%)] bg-primary blur-[120px]"></span>
       </div>
+      <span className="text-sm text-gray-500">Try asking: &apos;I need to schedule a cleaning&apos; or &apos;What are your office hours?&apos;</span>
     </div>
   );
 };

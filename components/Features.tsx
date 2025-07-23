@@ -7,7 +7,7 @@ import { fadeInUp, cardHover, iconHover } from "@/lib/animations"
 
 export default function Features() {
   return (
-    <section className="w-full py-[60px]">
+    <section className="w-full py-[60px]" id="features">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Heading */}
         <motion.div

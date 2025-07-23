@@ -226,7 +226,14 @@ export default function Hero() {
                 whileTap={{ scale: 0.98 }}
               >
                 <a 
-                  href="#learn-more"
+                  href="#features"
+                  onClick={e => {
+                    e.preventDefault();
+                    const el = document.getElementById('features');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                   className="inline-flex items-center px-8 py-3 bg-transparent border-2 border-black text-black rounded-full hover:bg-black hover:text-white transition-all font-medium"
                 >
                   Learn More
@@ -246,7 +253,7 @@ export default function Hero() {
                 data-laine-button="true"
               >
                 <Mic size={20} className="mr-2" />
-                Talk to LAINE
+                Demo Laine Live
               </motion.button>
             </div>
           </motion.div>
