@@ -72,9 +72,9 @@ export const metadata: Metadata = {
     "theme-color": "#09474C",
   },
   icons: {
-    icon: "/laine-favicon.png",
-    shortcut: "/laine-favicon.png",
-    apple: "/laine-favicon.png",
+    icon: "/laine-favicon-1.png",
+    shortcut: "/laine-favicon-1.png",
+    apple: "/laine-favicon-1.png",
   },
 };
 
