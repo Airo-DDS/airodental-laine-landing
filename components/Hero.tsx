@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import type { FC } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Play, Pause, SkipBack, SkipForward, Maximize2, Mic } from "lucide-react"
@@ -9,67 +8,6 @@ import AudioTranscriptModal from "./AudioTranscriptModal"
 import VapiModal from "./VapiModal"
 
 import { fadeInUp } from "@/lib/animations"
-
-// Custom audio waveform component since react-audio-visualize has compatibility issues with React 19
-const CustomAudioWaveform: FC<{ isPlaying: boolean; currentProgress: number }> = ({ 
-  isPlaying, 
-  currentProgress
-}) => {
-  // Number of bars in the waveform
-  const totalBars = 100;
-  
-  // Create an array of simulated waveform heights
-  const waveformData = Array.from({ length: totalBars }, (_, i) => {
-    // Create a semi-random pattern that looks like a waveform
-    // More in the middle, less on the ends
-    const position = i / totalBars;
-    const distanceFromCenter = Math.abs(position - 0.5) * 2;
-    const baseHeight = 0.3 + (0.7 * (1 - distanceFromCenter));
-    
-    // Add some randomness
-    const randomFactor = Math.random() * 0.4;
-    
-    // Occasional spikes
-    const spike = Math.random() > 0.9 ? Math.random() * 0.6 : 0;
-    
-    // Final height between 0.1 and 1
-    return Math.max(0.1, Math.min(1, baseHeight * (1 - randomFactor) + spike));
-  });
-
-  return (
-    <div className="w-full h-[200px] flex items-center bg-gradient-to-r from-[rgba(0,0,0,0.02)] to-[rgba(0,0,0,0.01)] rounded-lg p-4">
-      <div className="flex items-end w-full h-[150px] gap-[2px]">
-        {waveformData.map((height, index) => {
-          const isBefore = (index / totalBars) < currentProgress;
-          
-          // Bars that have been "played" use the gradient from red to yellow
-          // Bars that haven't been played yet use yellow
-          const barColor = isBefore 
-            ? index < totalBars / 2 
-              ? `rgba(${254 - (index * 100 / totalBars)}, ${4 + (index * 200 / totalBars)}, 4, 0.9)`
-              : `rgba(254, ${4 + (index * 200 / totalBars)}, ${4 + (index * 60 / totalBars)}, 0.9)`
-            : '#FECB41';
-            
-          // If playing, add a subtle pulse animation to bars near the current position
-          const isNearCurrent = Math.abs((index / totalBars) - currentProgress) < 0.05;
-          const shouldPulse = isPlaying && isNearCurrent;
-          
-          return (
-            <div 
-              key={`waveform-bar-${index}-${height}`}
-              className={`w-[3px] rounded-sm ${shouldPulse ? 'animate-pulse' : ''}`}
-              style={{
-                backgroundColor: barColor,
-                height: `${height * 100}%`,
-                transition: 'height 0.1s ease'
-              }}
-            />
-          );
-        })}
-      </div>
-    </div>
-  );
-};
 
 export default function Hero() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -79,6 +17,7 @@ export default function Hero() {
   const [isAudioModalOpen, setIsAudioModalOpen] = useState(false);
   const [isVapiModalOpen, setIsVapiModalOpen] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   
   useEffect(() => {
     // Create audio element
@@ -131,6 +70,19 @@ export default function Hero() {
       }
     };
   }, [loading]);
+
+  // Control video play/pause based on isPlaying state
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.play().catch(err => {
+          console.error('Error playing video:', err);
+        });
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isPlaying]);
 
   const togglePlayPause = () => {
     if (!audioRef.current) return;
@@ -197,7 +149,7 @@ export default function Hero() {
             animate="visible"
             variants={fadeInUp}
             custom={0}
-            className="flex-1"
+            className="flex-1 flex flex-col items-center md:items-start justify-center"
           >
             <Image 
               src="/laine-hero-logo.png" 
@@ -207,17 +159,17 @@ export default function Hero() {
               className="w-[200px] max-w-full h-auto mb-6"
             />
             
-            <h1 className="text-2xl sm:text-2xl font-bold mb-6 text-black leading-tight">
+            <h1 className="text-2xl sm:text-2xl font-bold mb-6 text-black leading-tight text-center md:text-left">
               Your complete <br />
               AI Dental Admin Assistant
             </h1>
             
-            <p className="text-lg mb-8 text-gray-800">
-              Streamline communication, automate tasks, enhance patient care
+            <p className="text-lg mb-8 text-gray-800 text-center md:text-left">
+            Seamlessly integrates with your EHR system to streamline appointment scheduling and enhance patient communication
             </p>
             
             {/* Buttons Container - Side by Side */}
-            <div className="flex flex-col sm:flex-row gap-4 items-start">
+            <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 items-center md:items-start">
               <motion.div
                 whileHover={{ 
                   scale: 1.05,
@@ -266,22 +218,44 @@ export default function Hero() {
             custom={1}
             className="flex-1 w-full max-w-[550px] bg-white rounded-xl shadow-lg p-6 sm:p-8"
           >
-            <div className="text-center mb-6">
-              <div className="uppercase text-gray-500 tracking-wider text-sm mb-2">SEE IT IN ACTION</div>
-              <h2 className="text-2xl font-semibold text-black">Patient Urgent Scheduling</h2>
+            <div className="flex items-start justify-between mb-6">
+              <div></div>
+              <div className="text-center pl-[40px]">
+                <span className="uppercase text-gray-500 tracking-wider text-sm mb-2">SEE IT IN ACTION</span>
+                <h2 className="text-2xl font-semibold text-black">Patient Urgent Scheduling</h2>
+              </div>
+
+              <button 
+                type="button"
+                onClick={() => setIsAudioModalOpen(true)}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                aria-label="Fullscreen"
+              >
+                <Maximize2 size={20} />
+              </button>
             </div>
 
             <div className="relative w-full h-[180px] mb-6">
-              {loading ? (
-                <div className="flex items-center justify-center h-full">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C33764]" />
-                </div>
-              ) : (
-                <CustomAudioWaveform 
-                  isPlaying={isPlaying} 
-                  currentProgress={duration > 0 ? currentTime / duration : 0} 
-                />
-              )}
+              <Image
+                  src={isPlaying ? "/laine-sphere.gif" : "/laine-sphere.png"}
+                  alt="laine branding sphere"
+                  fill
+                  className="object-contain"
+              />
+
+
+              <video 
+                  autoPlay={isPlaying}
+                  loop 
+                  muted 
+                  playsInline
+                  className="w-full h-full object-contain md:object-cover -z-10"
+                  poster="/laine-hero-wave.png"
+                  ref={videoRef}
+              >
+                  <source src="/laine-audio-wave.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+              </video>
             </div>
 
             <div className="flex items-center justify-between">
@@ -315,14 +289,6 @@ export default function Hero() {
               <span className="text-gray-600">{formatTime(duration)}</span>
             </div>
             
-            <button 
-              type="button"
-              onClick={() => setIsAudioModalOpen(true)}
-              className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
-              aria-label="Fullscreen"
-            >
-              <Maximize2 size={20} />
-            </button>
           </motion.div>
         </div>
       </div>
