@@ -27,16 +27,16 @@ export const metadata: Metadata = {
   creator: "Airodental",
   publisher: "Airodental",
   openGraph: {
-    title: "Airodental | AI-Powered Dental Practice Management",
-    description: "Revolutionize your dental practice with Airodental's AI solutions. Streamline patient communication, enhance staff training, and improve practice efficiency.",
-    url: "https://airodental.com",
+    title: "Laine - AI Dental Assistant | Automated Patient Communication & Scheduling",
+    description: "Meet Laine, the AI dental assistant that handles patient calls, schedules appointments, and manages communications 24/7. HIPAA-compliant AI technology designed specifically for dental practices by Dr. Deren Flesher.",
+    url: "https://laine.airodental.com",
     siteName: "Airodental",
     images: [
       {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Airodental - AI for Dental Practices"
+        url: "/laine-card.png",
+        width: 875,
+        height: 785,
+        alt: "Laine - AI Dental Assistant"
       }
     ],
     locale: "en_US",
